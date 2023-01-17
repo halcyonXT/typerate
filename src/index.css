@@ -6,14 +6,14 @@ body {
 }
 
 .--header {
-    height: 10vh;
+    height: 12vh;
     background-color: gray;
     display:flex;
     justify-content: space-between;
     align-items: center;
     padding: 0px 3.9308vw 0px 3.9308vw;
     /*box-shadow: rgb(192, 192, 192) 0px 5px 15px;*/
-    box-shadow: rgb(105, 105, 105) 0px 0.4717vw 0px;
+    box-shadow: rgb(105, 105, 105) 0px 0.2717vw 0px;
 }
 
 .--header-logo {
@@ -51,7 +51,7 @@ body {
 }
 
 .--main-wrapper {
-    margin-top: 0.4717vw;
+    margin-top: 0.2717vw;
     height:calc(100vh - 0.4717vw);
     width:100vw;
     display: flex;
@@ -222,8 +222,10 @@ body {
 
 .--header-info {
     color: white;
-    text-shadow: rgb(105, 105, 105) 0px 0.2717vw 0px;
+    /*text-shadow: rgb(105, 105, 105) 0px 0.2717vw 0px;*/
+    padding: 0.2vw;
     font-size: 1.9157vw;
+    text-align: center;
 }
 
 .--header-info-sub {
@@ -231,13 +233,16 @@ body {
     z-index: 10;
     color: white;
     text-shadow: rgb(105, 105, 105) 0px 0.1358vw 0px;
-    top: calc(10vh - 0.7792vw);
+    top: calc(7vh - 0.7792vw);
     font-weight: 400;
     margin:0;
     margin-bottom: -0.7862vw;;
     text-align: center;
-    font-size: 0.6vw;
+    font-size: 0.8vw;
     font-style: italic;
+    text-align: center;
+    transform: rotate(-90deg);
+    margin-right: 11vw;
 }
 
 .--restart-btn {
@@ -248,7 +253,7 @@ body {
     border: none;
     background-color: rgb(88, 88, 88);
     border-bottom: 0.4717vw solid rgb(56, 56, 56);
-    border-radius: 1.5723vw;
+    border-radius: 0.7723vw;
     width: 3.717vw;
     height: 3.717vw;
 }
@@ -261,4 +266,43 @@ body {
     height:1.6585vw;
     user-select: none;
     -webkit-user-drag: none;
+}
+
+.--header-container {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-around; 
+}
+
+.items {
+    border: 0.1vw solid white;
+    background-color: #3c3c3c;
+    height: 12vh;
+    border-bottom: none;
+    width: 9vw;
+}
+
+.label {
+    font-size: 1.157vw;
+    text-align: right;
+    margin: 0;
+}
+
+.cwpm {
+    text-align: left;
+    margin: 0;
+}
+
+.--header-time {
+    width: 100%;
+    height: 5vh;
+    background-color: transparent;
+    border:none;
+    outline: none;
+    font-size: 1.9vw;
+    color:white;
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+    font-weight: 700;
+    pointer-events: none;
 }
