@@ -42,11 +42,11 @@ function Header(props) {
                 <div className='--header-container items'>
                     <div style={{width:'90%', textAlign: 'center'}}>
                         <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
-                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.5157vw'}}>{speed.wpm}</h2>
+                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.4057vw'}}>{speed.wpm}</h2>
                             <h2 className='--header-info label'>wpm</h2>
                         </div>
                         <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
-                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.5157vw'}}>{speed.cpm}</h2>
+                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.4057vw'}}>{speed.cpm}</h2>
                             <h2 className='--header-info label'>cpm</h2>
                         </div>
                         <h6 className='--header-info-sub' style={{left:'66.2%'}}>Speed</h6>
