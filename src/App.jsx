@@ -20,7 +20,7 @@ function App() {
     const [correct, setCorrect] = useState(true) //State that determines wheter input is matching given word or not
     const [wordStorage,setWordStorage] = useState([]) //State that stores words to precisely calculate WPM and CPM, along with potential future uses
     const [started, setStarted] = useState(false) //State that determines whether the user has started typing or not
-    const [definedTime, setDefinedTime] = useState(2000) //State that determines what the defined time is
+    const [definedTime, setDefinedTime] = useState(30000) //State that determines what the defined time is
     const [chartData, setChartData] = useState([]) //State that keeps data used for chart building
     const [finishData, setFinishData] = useState({
         WPM: 0,

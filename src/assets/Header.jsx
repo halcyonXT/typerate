@@ -72,8 +72,18 @@ function Header(props) {
             }
             newVal = newVal.join('')
             if (!isNaN(Number(newVal))) {
-                props.tools.changeDef(newVal * 1000)
-                props.tools.changeTime(newVal * 1000)
+                props.tools.changeDef(prev => {
+                    if (newVal * 1000 == 0) {
+                        newVal = 1
+                    }
+                    return newVal * 1000
+                })
+                props.tools.changeTime(prev => {
+                    if (newVal * 1000 == 0) {
+                        newVal = 1
+                    }
+                    return newVal * 1000
+                })
             }
         }
     }
@@ -92,11 +102,11 @@ function Header(props) {
                 <div className='--header-container items'>
                     <div style={{width:'90%', textAlign: 'center'}}>
                         <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
-                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.4057vw'}}>{speed.wpm}</h2>
+                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.wpm}</h2>
                             <h2 className='--header-info label'>wpm</h2>
                         </div>
                         <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
-                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.4057vw'}}>{speed.cpm}</h2>
+                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.cpm}</h2>
                             <h2 className='--header-info label'>cpm</h2>
                         </div>
                         <h6 className='--header-info-sub' style={{left:'66.5%'}}>Speed</h6>
