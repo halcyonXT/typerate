@@ -154,15 +154,17 @@ function FinishScreen(props) {
                         <div className='--finish-results'>
                             <DataDisp left={props.finishData.WPM} right="WPM"/>
                             <DataDisp left={props.finishData.CPM} right="CPM"/>
+                            <DataDisp left={props.finishData.maxWPM} right="Max WPM"/>
+                            <DataDisp left={props.finishData.maxCPM} right="Max CPM"/>
                             <DataDisp left={props.finishData.accuracy} right="Accuracy"/>
                             <DataDisp left={total.totalChars} right="Total characters"/>
                             <DataDisp left={total.totalWords} right="Total words"/>
                             <DataDisp left={total.totalMissed} right="Total missed"/>
-                            <details open style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c', marginTop: '0.4vw'}}>
+                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c', marginTop: '0.4vw'}}>
                                 <summary className="--finish-results-text">All words</summary>
                                 <p className='--summary-txt'>{all.words.join(', ')}</p>
                             </details>
-                            <details open style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c', marginTop: '0.4vw'}}>
+                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c', marginTop: '0.4vw'}}>
                                 <summary className="--finish-results-text">All missed words</summary>
                                 <p className='--summary-txt'>{all.missed.join(', ')}</p>
                             </details>
