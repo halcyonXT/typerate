@@ -402,6 +402,7 @@ body {
 
 .--finish-chart {
     width: 20vw;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .--finish-title {
