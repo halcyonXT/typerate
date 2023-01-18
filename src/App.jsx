@@ -114,7 +114,15 @@ function App() {
             return outp
         })
         setChartData([])
-        setFinishData([])
+        setFinishData({
+            WPM: 0,
+            CPM: 0,
+            accuracy: 0,
+            maxWPM: 0,
+            maxCPM: 0,
+            totalWords: 0,
+            totalCharacters: 0
+        })
         document.getElementById('minput').focus()
     }
 
