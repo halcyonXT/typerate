@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import wordList from 'word-list-json'
 import Word from './assets/Word'
 import Header from './assets/Header'
-import restarticon from './assets/restarticon.png'
+import FinishScreen from './assets/FinishScreen'
 const WORDS = wordList.slice(10000)
 
 function App() {
@@ -20,21 +20,32 @@ function App() {
     const [correct, setCorrect] = useState(true) //State that determines wheter input is matching given word or not
     const [wordStorage,setWordStorage] = useState([]) //State that stores words to precisely calculate WPM and CPM, along with potential future uses
     const [started, setStarted] = useState(false) //State that determines whether the user has started typing or not
-    const [definedTime, setDefinedTime] = useState(30000) //State that determines what the defined time is
+    const [definedTime, setDefinedTime] = useState(2000) //State that determines what the defined time is
+    const [chartData, setChartData] = useState([]) //State that keeps data used for chart building
+    const [finishData, setFinishData] = useState({
+        WPM: 0,
+        CPM: 0,
+        accuracy: 0,
+        maxWPM: 0,
+        maxCPM: 0,
+        totalWords: 0,
+        totalCharacters: 0
+    }) //State that keeps data used for finish container
     const [time, setTime] = useState(definedTime) //State that keeps track of time rundown
+    const startedRef = React.useRef(started) //Reference to started state used for timer
+    startedRef.current = started
 
-    useEffect(() => { //At the start of the program, makes a setInterval that deducts 100 from definedTime every 100ms. This will not fire until the race starts due to [1]
+    useEffect(() => {
         setInterval(() => {
-            setTime(prev => prev - 100)
+            if (startedRef.current) { //If the game has started deduct 100 else do nothing
+                setTime(prev => prev - 100)
+            }
         }, 100)
     }, [])
     
     useEffect(() => {
         if (time <= 0) {
-            document.getElementById('rst').style.display = 'block' // Display reset button when finished
-        }
-        if (!started) {
-            setTime(definedTime) // [1] - If game has not started, set time back to defined time as a preventative measure against setInterval
+            setStarted(false)
         }
     }, [time])
 
@@ -66,9 +77,12 @@ function App() {
             setWords(prev => {
                 let outp = [...prev]
                 outp.shift()
+                let origVal = outp[3].body
                 outp[3].status = checker ? 'correct' : 'incorrect'
                 outp[3].body = value.slice(0, -1)
-                setWordStorage(prev => [...prev, outp[3]]) //Word storage gets a new element equal to the object of the input body and whether its correct or not
+                let pushObj = outp[3]
+                pushObj.original = origVal
+                setWordStorage(prev => [...prev, pushObj]) //Word storage gets a new element equal to the object of the input body and whether its correct or not
                 outp[8] = {
                     body: WORDS[Math.ceil(Math.random() * 160000)],
                     status: 'queued'
@@ -99,14 +113,17 @@ function App() {
             }
             return outp
         })
-        document.getElementById('rst').style.display = 'none'
+        setChartData([])
+        setFinishData([])
         document.getElementById('minput').focus()
     }
 
 
     return (
         <React.Fragment>
-            <Header time={time} words={wordStorage} started={started} setDef={setDefinedTime} definedTime={definedTime}/>
+            {time <= 0 && <FinishScreen restart={restart} chartData={chartData} finishData={finishData} wordStorage={wordStorage}/>}
+            <Header time={time} words={wordStorage} started={started} defTime={definedTime} finishData={finishData}
+            tools={{changeDef: setDefinedTime, changeTime: setTime, changeChartData: setChartData, changeFinishData: setFinishData}}/>
             <div className='--main-wrapper'>
                 <Word size='0.8868' word={words[0]}/>
                 <Word size='1.2157' word={words[1]}/>
@@ -119,7 +136,6 @@ function App() {
                 <Word size='2.0447' word={words[6]}/>
                 <Word size='1.2157' word={words[7]}/>
                 <Word size='0.8868' word={words[8]}/>
-                <button id='rst' className='--restart-btn' onClick={restart}><img className='--restart-img' src={restarticon}/></button>
                 <ul className="circles">
                     <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
                 </ul>

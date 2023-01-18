@@ -239,23 +239,23 @@ body {
     margin-bottom: -0.7862vw;;
     text-align: center;
     font-size: 0.8vw;
-    font-style: italic;
     text-align: center;
     transform: rotate(-90deg);
-    margin-right: 11vw;
+    margin-right: 10.6vw;
 }
 
 .--restart-btn {
-    display: none;
-    position: absolute;
-    z-index: 10;
-    margin-top: -41.8931vw;
+    display: block;
+    position: relative;
+    z-index: 100;
     border: none;
     background-color: rgb(88, 88, 88);
     border-bottom: 0.4717vw solid rgb(56, 56, 56);
-    border-radius: 0.7723vw;
-    width: 3.717vw;
+    border-radius: 0.4vw;
+    width: calc(100% - 2vw);
     height: 3.717vw;
+    margin-left: 2vw;
+    margin-top: 2vh;
 }
 
 .--restart-btn:active {
@@ -287,6 +287,7 @@ body {
     text-align: right;
     margin: 0;
     font-style: italic;
+    color: rgb(182, 182, 182);
 }
 
 .cwpm {
@@ -305,5 +306,155 @@ body {
     font-family: 'Roboto Mono', monospace;
     text-align: center;
     font-weight: 700;
-    pointer-events: none;
+}
+
+.--finish-wrapper {
+    position: absolute;
+    z-index: 100;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.274);
+    display:grid;
+    place-items: center;
+}
+
+.--finish-container {
+    padding: 2vw;
+    width: 50vw;
+    height: 60vh;
+    background-color: white;
+    border-radius: 0.4vw;
+    box-shadow: rgb(95, 95, 95) 0px 0px 30px;
+}
+
+@keyframes showBox {
+    0% {
+        transform: scale(1.4);
+        opacity: 0;
+        border-radius: 0.4vw;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes closeBox {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+.showBox {
+    animation-name: showBox;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+.closeBox {
+    animation-name: closeBox;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes showOverlay {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes closeOverlay {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.showOver {
+    animation-name: showOverlay;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+.closeOver {
+    animation-name: closeOverlay;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+.--finish-chart {
+    width: 20vw;
+}
+
+.--finish-title {
+    text-align: center;
+    font-size: 2.0953vw;
+    color:rgb(56, 56, 56);
+}
+
+.--finish-results {
+    height: 49vh;
+    background-color: #3c3c3c;
+    width: 100%;
+    border-radius: 0.4vw;
+    overflow-y:auto
+}
+
+.--finish-results-text {
+    color: white;
+    font-size: 1.4953vw;
+    margin: 0;
+    margin-left: 0.6vw;
+    font-weight: 200;
+}
+
+.--frtr {
+    font-style: italic;
+    font-size: 1.0953vw;
+    margin-right: 0.6vw;
+    color: gray;
+    font-weight: 200;
+}
+
+::-webkit-scrollbar {
+    width: 0.4vw;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: transparent;
+    border-radius: 0.2vw;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(201, 201, 201, 0.767);
+    border-radius: 0.2vw;
+}
+
+.--summary-txt {
+    margin: 0;
+    font-style: italic;
+    font-size: 0.9953vw;
+    color: rgb(177, 177, 177);
+    font-weight: 200;
+    padding: 0.4vw;
 }
