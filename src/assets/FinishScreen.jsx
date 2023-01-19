@@ -104,8 +104,7 @@ function FinishScreen(props) {
                 backgroundColor: 'rgba(220, 98, 98, 0.8)'
                 },
             ],
-        }
-
+        } 
         let optionsCPM = {
             responsive: true,
             plugins: {

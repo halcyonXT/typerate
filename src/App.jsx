@@ -38,6 +38,7 @@ function App() {
     const [time, setTime] = useState(definedTime) //State that keeps track of time rundown
     const [settings, setSettings] = useState({ //State for all the user settings
         activated: false, //whether to render settings or not
+        displayType: 'stacked',
         mode: {
             name: "enghard",
             loaded: true,
@@ -95,7 +96,20 @@ function App() {
         } else {
             WORDS = []
             WORDS = wordList.slice(10000, 260000)
+            setWords(prev => {
+                let outp = []
+                for (let i = 0; i < 9; i++) {
+                    outp[i] = {
+                        body: i < 4 ? 'o' : WORDS[Math.ceil(Math.random() * WORDS.length)],
+                        status: i < 4 ? 'filler' : 'queued'
+                    }
+                }
+                return outp
+            })
         }
+    }
+    const changeDisplay = (val) => {
+        setSettings(prev => ({...prev, displayType: val}))
     }
 
     const compareStrings = (first, second) => { //Compares original and inputted value to determine severity of wrongness - MOVED UP FROM HEADER
@@ -194,22 +208,64 @@ function App() {
 
     return (
         <React.Fragment>
-            {settings.activated && !started && <Settings setSettings={setSettings} changeMode={changeMode}/>}
+            {settings.activated && !started && <Settings setSettings={setSettings} changeMode={changeMode} changeDisplay={changeDisplay}/>}
             {time <= 0 && <FinishScreen restart={restart} chartData={chartData} finishData={finishData} wordStorage={wordStorage} settings={settings} defTime={definedTime}/>}
             <Header time={time} words={wordStorage} started={started} defTime={definedTime} finishData={finishData}
             tools={{changeDef: setDefinedTime, changeTime: setTime, changeChartData: setChartData, changeFinishData: setFinishData, changeWordStorage: setWordStorage, changeSettings: setSettings}}/>
             <div className='--main-wrapper'>
-                <Word size='0.8868' word={words[0]}/>
-                <Word size='1.2157' word={words[1]}/>
-                <Word size='2.0447' word={words[2]}/>
-                <Word size='3.4239' word={words[3]}/>
-                <textarea className='--main-word' rows='1' cols={words[4].body.length} value={words[4].body}></textarea>
-                <textarea className='--main-input' onInput={settings.mode.loaded ? handleMainInput : () => {console.log(Loading)}} rows='1' cols={words[4].body.length > input.length ? words[4].body.length : input.length} 
-                name='input' value={input} style={{color:correct ? 'rgb(54, 54, 54)' : 'red'}} spellCheck='false' maxLength={20} id='minput'></textarea>
-                <Word size='3.4239' word={words[5]}/>
-                <Word size='2.0447' word={words[6]}/>
-                <Word size='1.2157' word={words[7]}/>
-                <Word size='0.8868' word={words[8]}/>
+                {settings.displayType == 'stacked' && 
+                    (
+                    <React.Fragment>
+                        <Word size='0.8868' word={words[0]}/>
+                        <Word size='1.2157' word={words[1]}/>
+                        <Word size='2.0447' word={words[2]}/>
+                        <Word size='3.4239' word={words[3]}/>
+                        <textarea className='--main-word' rows='1' cols={words[4].body.length} value={words[4].body}></textarea>
+                        <textarea className='--main-input' onInput={settings.mode.loaded ? handleMainInput : () => {console.log(Loading)}} rows='1' cols={words[4].body.length > input.length ? words[4].body.length : input.length} 
+                        name='input' value={input} style={{color:correct ? 'rgb(54, 54, 54)' : 'red'}} spellCheck='false' maxLength={20} id='minput'></textarea>
+                        <Word size='3.4239' word={words[5]}/>
+                        <Word size='2.0447' word={words[6]}/>
+                        <Word size='1.2157' word={words[7]}/>
+                        <Word size='0.8868' word={words[8]}/>
+                    </React.Fragment>
+                    )
+                }
+                {
+                    settings.displayType == 'sequential' &&
+                    <React.Fragment>
+                        <div style={{width: '120%', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.1)', border: '0.2vw solid white'}}>
+                            <div style={{display: 'flex', alignItems: 'center', overflowWrap: 'normal', justifyContent: 'space-evenly', overflow: 'hidden'}}>
+                                <Word size='3.1239' word={words[0]}/>
+                                <Word size='3.1239' word={words[1]}/>
+                                <Word size='3.1239' word={words[2]}/>
+                                <Word size='3.1239' word={words[3]}/>
+                                <div>
+                                    <textarea className='--main-word' rows='1' cols={words[4].body.length} value={words[4].body} style={{fontSize: '3.1239vw'}}></textarea>
+                                    <textarea className='--main-input' onInput={settings.mode.loaded ? handleMainInput : () => {console.log(Loading)}} rows='1' cols={words[4].body.length > input.length ? words[4].body.length : input.length} 
+                                    name='input' value={input} style={{color:correct ? 'rgb(54, 54, 54)' : 'red', fontSize: '3.1239vw'}} spellCheck='false' maxLength={20} id='minput'></textarea>
+                                </div>
+                                <Word size='3.1239' word={words[5]}/>
+                                <Word size='3.1239' word={words[6]}/>
+                                <Word size='3.1239' word={words[7]}/>
+                                <Word size='3.1239' word={words[8]}/>
+                            </div>
+                        </div>
+                    </React.Fragment>
+                }
+                {
+                    settings.displayType == 'singular' &&
+                    <React.Fragment>
+                        <div>
+                            <div>
+                                <textarea className='--main-word' rows='1' cols={words[4].body.length} value={words[4].body} style={{fontSize: '8.1239vw'}}></textarea>
+                                <textarea className='--main-input' onInput={settings.mode.loaded ? handleMainInput : () => {console.log(Loading)}} rows='1' cols={words[4].body.length > input.length ? words[4].body.length : input.length} 
+                                name='input' value={input} style={{color:correct ? 'rgb(54, 54, 54)' : 'red', fontSize: '8.1239vw'}} spellCheck='false' maxLength={20} id='minput'></textarea>
+                            </div>
+                            <Word size='7.1239' word={words[5]}/>
+                        </div>
+                                
+                    </React.Fragment>
+                }
                 <ul className="circles">
                     <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
                 </ul>
