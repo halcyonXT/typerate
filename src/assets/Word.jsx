@@ -4,9 +4,19 @@ function Word(props){
     let styles = {}
     styles.fontSize = `${props.size}vw`
     styles.color = 'rgb(0,0,0,0.3)'
-    props.word.status === 'incorrect' ? styles.color = 'rgb(255, 0, 0, 0.6)' : props.word.status === 'correct' ? styles.color = 'rgb(0,0,0,0.5)' : true
-    props.word.status === 'incorrect' ? styles.textDecoration = 'line-through' : styles.textDecoration = 'none'
-    props.word.status === 'filler' ? styles.color = 'rgb(0,0,0,0)' :  true
+    if (props.word.status === 'incorrect') {
+        console.log(props.word.hasOwnProperty('accepted'))
+        if (props.word.hasOwnProperty('accepted') && props.word.accepted == true) {
+            styles.color = 'rgba(177, 201, 92, 0.829)'
+        } else {
+            styles.color = 'rgb(255, 0, 0, 0.6)'
+            styles.textDecoration = 'line-through'
+        }
+    } else if (props.word.status === 'correct') {
+        styles.color = 'rgba(0, 177, 227, 0.781)'
+    } else if (props.word.status === 'filler') {
+        styles.color = 'rgba(0,0,0,0)'
+    }
     return (
         <React.Fragment>
             <h1 className='--main-subword' style={styles}>{props.word.body}</h1>

@@ -116,7 +116,7 @@ function FinishScreen(props) {
             legend: { display: false }
             },
         };
-        setChartWPM(<Bar options={optionsWPM} data={dataWPM} className='--finish-chart'/>)
+        setChartWPM(<Bar options={optionsWPM} data={dataWPM} className='--finish-chart bott'/>)
         setChartCPM(<Bar options={optionsCPM} data={dataCPM} className='--finish-chart'/>)
         setTotal(prev => {
             let sumC = 0, sumM = 0
@@ -153,10 +153,12 @@ function FinishScreen(props) {
                         <h1 className='--finish-title'>Final results</h1>
                         <div className='--finish-results'>
                             <DataDisp left={props.finishData.WPM} right="WPM"/>
-                            <DataDisp left={props.finishData.CPM} right="CPM"/>
                             <DataDisp left={props.finishData.maxWPM} right="Max WPM"/>
+                            <DataDisp left={props.finishData.CPM} right="CPM"/>
                             <DataDisp left={props.finishData.maxCPM} right="Max CPM"/>
                             <DataDisp left={props.finishData.accuracy} right="Accuracy"/>
+                            <DataDisp left={props.defTime / 1000} right="Time (s)"/>
+                            <DataDisp left={props.settings.mode.dispName} right="Mode"/>
                             <DataDisp left={total.totalChars} right="Total characters"/>
                             <DataDisp left={total.totalWords} right="Total words"/>
                             <DataDisp left={total.totalMissed} right="Total missed"/>

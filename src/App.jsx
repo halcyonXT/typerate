@@ -3,14 +3,18 @@ import wordList from 'word-list-json'
 import Word from './assets/Word'
 import Header from './assets/Header'
 import FinishScreen from './assets/FinishScreen'
-const WORDS = wordList.slice(10000)
+import Settings from './assets/Settings'
+let WORDS = wordList.slice(10000, 260000)
+
+//fetch(`https://raw.githubusercontent.com/SMenigat/thousand-most-common-words/v1.0.1/words/fry.json`).then(res => res.json()).then(json => console.log(json))
+
 
 function App() {
     const [words, setWords] = useState(function(){ //State for words that should be typed
         let outp = []
         for (let i = 0; i < 9; i++) {
             outp[i] = {
-                body: i < 4 ? 'o' : WORDS[Math.ceil(Math.random() * 160000)],
+                body: i < 4 ? 'o' : WORDS[Math.ceil(Math.random() * WORDS.length)],
                 status: i < 4 ? 'filler' : 'queued'
             }
         }
@@ -32,9 +36,18 @@ function App() {
         totalCharacters: 0
     }) //State that keeps data used for finish container
     const [time, setTime] = useState(definedTime) //State that keeps track of time rundown
+    const [settings, setSettings] = useState({ //State for all the user settings
+        activated: false, //whether to render settings or not
+        mode: {
+            name: "enghard",
+            loaded: true,
+            dispName: "English (hard)"
+        }
+    })
+
     const startedRef = React.useRef(started) //Reference to started state used for timer
     startedRef.current = started
-
+    
     useEffect(() => {
         setInterval(() => {
             if (startedRef.current) { //If the game has started deduct 100 else do nothing
@@ -48,6 +61,55 @@ function App() {
             setStarted(false)
         }
     }, [time])
+    
+    const changeMode = async (val) => {
+        if (val != 'enghard' && val != 'engeasy') {
+            WORDS = new Array(10).fill('Loading...')
+            setSettings(prev => {
+                let outp = {...prev}
+                outp.mode.loaded = false
+                outp.mode.name = val
+                return outp
+            })
+            let data = await fetch(`https://raw.githubusercontent.com/SMenigat/thousand-most-common-words/v1.0.1/words/${val}.json`)
+            let newData = await data.json()
+            let mapData = newData.words
+            WORDS = []
+            WORDS = mapData.map(item => val == 'en' ? item.englishWord.toLowerCase() : item.targetWord.toLowerCase())
+            setSettings(prev => {
+                let outp = {...prev}
+                outp.mode.loaded = true
+                outp.mode.dispName = val == 'en' ? "English (easy)" : newData.languageName
+                return outp
+            })
+            setWords(prev => {
+                let outp = []
+                for (let i = 0; i < 9; i++) {
+                    outp[i] = {
+                        body: i < 4 ? 'o' : WORDS[Math.ceil(Math.random() * WORDS.length)],
+                        status: i < 4 ? 'filler' : 'queued'
+                    }
+                }
+                return outp
+            })
+        } else {
+            WORDS = []
+            WORDS = wordList.slice(10000, 260000)
+        }
+    }
+
+    const compareStrings = (first, second) => { //Compares original and inputted value to determine severity of wrongness - MOVED UP FROM HEADER
+        let newFIR = first.split(''), newSEC = second.split(''), res = false, sum = 0
+        for (let char in newFIR) {
+            if (newFIR[char] == newSEC[char]) {
+                ++sum
+            }
+        }
+        if ((sum / newSEC.length) >= 0.75) {
+            res = true
+        }
+        return res
+    }
 
     const checkWord = (val, final = false) => { //final arg checks if the entire word matches, not just the input part that is used for displaying
         let correct = true
@@ -82,9 +144,12 @@ function App() {
                 outp[3].body = value.slice(0, -1)
                 let pushObj = outp[3]
                 pushObj.original = origVal
+                if (pushObj.status == 'incorrect') { //Determines how severe the error is, less severe typos will be counted into WPM and CPM
+                    pushObj.accepted = compareStrings(pushObj.body, pushObj.original)
+                }
                 setWordStorage(prev => [...prev, pushObj]) //Word storage gets a new element equal to the object of the input body and whether its correct or not
                 outp[8] = {
-                    body: WORDS[Math.ceil(Math.random() * 160000)],
+                    body: WORDS[Math.ceil(Math.random() * WORDS.length)],
                     status: 'queued'
                 } 
                 return outp
@@ -107,7 +172,7 @@ function App() {
             let outp = []
             for (let i = 0; i < 9; i++) {
                 outp[i] = {
-                    body: i < 4 ? 'o' : WORDS[Math.ceil(Math.random() * 200000)],
+                    body: i < 4 ? 'o' : WORDS[Math.ceil(Math.random() * WORDS.length)],
                     status: i < 4 ? 'filler' : 'queued'
                 }
             }
@@ -129,16 +194,17 @@ function App() {
 
     return (
         <React.Fragment>
-            {time <= 0 && <FinishScreen restart={restart} chartData={chartData} finishData={finishData} wordStorage={wordStorage}/>}
+            {settings.activated && !started && <Settings setSettings={setSettings} changeMode={changeMode}/>}
+            {time <= 0 && <FinishScreen restart={restart} chartData={chartData} finishData={finishData} wordStorage={wordStorage} settings={settings} defTime={definedTime}/>}
             <Header time={time} words={wordStorage} started={started} defTime={definedTime} finishData={finishData}
-            tools={{changeDef: setDefinedTime, changeTime: setTime, changeChartData: setChartData, changeFinishData: setFinishData}}/>
+            tools={{changeDef: setDefinedTime, changeTime: setTime, changeChartData: setChartData, changeFinishData: setFinishData, changeWordStorage: setWordStorage, changeSettings: setSettings}}/>
             <div className='--main-wrapper'>
                 <Word size='0.8868' word={words[0]}/>
                 <Word size='1.2157' word={words[1]}/>
                 <Word size='2.0447' word={words[2]}/>
                 <Word size='3.4239' word={words[3]}/>
                 <textarea className='--main-word' rows='1' cols={words[4].body.length} value={words[4].body}></textarea>
-                <textarea className='--main-input' onInput={handleMainInput} rows='1' cols={words[4].body.length > input.length ? words[4].body.length : input.length} 
+                <textarea className='--main-input' onInput={settings.mode.loaded ? handleMainInput : () => {console.log(Loading)}} rows='1' cols={words[4].body.length > input.length ? words[4].body.length : input.length} 
                 name='input' value={input} style={{color:correct ? 'rgb(54, 54, 54)' : 'red'}} spellCheck='false' maxLength={20} id='minput'></textarea>
                 <Word size='3.4239' word={words[5]}/>
                 <Word size='2.0447' word={words[6]}/>

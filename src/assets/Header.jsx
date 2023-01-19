@@ -1,5 +1,5 @@
 import React from 'react'
-
+import menuicon from './menu.png'
 
 function Header(props) {
     let [accuracy, setAccuracy] = React.useState(100)
@@ -8,27 +8,54 @@ function Header(props) {
     let [timeMarkers, setTimeMarkers] = React.useState([]) //Time markers for saving chart data
     const ref = React.useRef()
 
-    const calcCPM = () => {
+
+    const getTotalChars = (checkWrong = false) => { //checkWrong includes severity check
         let sum = 0
-        for (let word of props.words) {sum += word.body.length}
+        for (let word of props.words) {
+            if (checkWrong) {
+                if (word.status === 'incorrect') {
+                    if (word.hasOwnProperty('accepted') && word.accepted == true) {
+                        sum += word.body.length
+                        continue
+                    } else if (word.hasOwnProperty('accepted') && word.accepted == false) {
+                        continue
+                    }
+                } else sum += word.body.length
+            } else sum += word.body.length
+        }
+        return sum
+    }
+
+    const calcCPM = () => {
+        let sum = getTotalChars(true)
         return sum === 0 ? 0 : Math.ceil(((sum / ((props.defTime / 1000) - dispTime)) * 60) * 100) / 100
     }
+
+    const calcWPM = () => {
+        let sum = Math.ceil(getTotalChars(true) / 5)
+        let outp = 0
+        if (dispTime < (props.defTime / 1000)) {
+            outp = Math.ceil(((sum / ((props.defTime / 1000) - dispTime)) * 60 ) * 100) / 100
+        } else outp = 0
+        return outp
+    }
+
     React.useEffect(() => {
         let corSum = 0
         for (let item of props.words) {
             if (item.status === 'correct') {++corSum}
         }
         setAccuracy(props.words.length === 0 ? 100 : Math.ceil(((corSum * 100) / props.words.length) * 100) / 100)
-        setSpeed({wpm: dispTime < (props.defTime / 1000) ? Math.ceil(((props.words.length / ((props.defTime / 1000) - dispTime)) * 80 ) * 100) / 100 : 0, //I put 80 instead of 60 for some leniency towards the user, since most words are BS 
+        setSpeed({wpm: calcWPM(), 
                 cpm: calcCPM()}) 
     }, [dispTime])
 
-    React.useEffect(() => { //every time controlled time changes calculate display time
+    React.useEffect(() => { //every time controlled time changes calculate display time 
         setDispTime(prev => {
             if (props.time <= 0) {return 0} else {return props.time / 1000}
         })
-        if ((dispTime < (props.defTime / 1000) ? Math.ceil(((props.words.length / ((props.defTime / 1000) - dispTime)) * 80 ) * 100) / 100 : 0) > props.finishData.maxWPM) {
-            props.tools.changeFinishData(prev => ({...prev, maxWPM: dispTime < (props.defTime / 1000) ? Math.ceil(((props.words.length / ((props.defTime / 1000) - dispTime)) * 80 ) * 100) / 100 : 0}))
+        if ((calcWPM()) > props.finishData.maxWPM) {
+            props.tools.changeFinishData(prev => ({...prev, maxWPM: calcWPM()}))
         }
         if (calcCPM() > props.finishData.maxCPM) {
             props.tools.changeFinishData(prev => ({...prev, maxCPM: calcCPM()}))
@@ -36,12 +63,13 @@ function Header(props) {
         if (timeMarkers.includes(props.time)) {
             props.tools.changeChartData(prev => [...prev, {
                 time: props.time,
-                wpm: dispTime < (props.defTime / 1000) ? Math.ceil(((props.words.length / ((props.defTime / 1000) - dispTime)) * 80 ) * 100) / 100 : 0,
+                wpm: calcWPM(),
                 cpm: calcCPM()
             }])
         }
+        //calcWPM()
         if (props.time == 0) {
-            props.tools.changeFinishData(prev => ({...prev, WPM: dispTime < (props.defTime / 1000) ? Math.ceil(((props.words.length / ((props.defTime / 1000) - dispTime)) * 80 ) * 100) / 100 : 0,
+            props.tools.changeFinishData(prev => ({...prev, WPM: calcWPM(),
                 CPM: calcCPM(),
                 accuracy: accuracy
             }))
@@ -88,6 +116,8 @@ function Header(props) {
         }
     }
 
+    const handleSettings = () => props.tools.changeSettings(prev => ({...prev, activated: !prev.activated}))
+
     return (
         <div className='--header'>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -109,13 +139,16 @@ function Header(props) {
                             <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.cpm}</h2>
                             <h2 className='--header-info label'>cpm</h2>
                         </div>
-                        <h6 className='--header-info-sub' style={{left:'66.5%'}}>Speed</h6>
+                        <h6 className='--header-info-sub' style={{left:'64.2%'}}>Speed</h6>
                     </div>
                 </div>
                 <div className='--header-container items'>
                     <input className='--header-time' spellCheck={false} ref={ref} onInput={handleTimeChange} 
                     value={props.started ? `${dispTime}s` : props.defTime/1000 + 's'}></input>
                     <h6 className='--header-info-sub'>Time</h6>
+                </div>
+                <div className='--header-container'>
+                    <button className='--settings-btn' onClick={handleSettings}><img className='--settings-btn-icon' src={menuicon}></img></button>
                 </div>
             </div>
         </div>
