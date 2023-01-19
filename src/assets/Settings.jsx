@@ -29,7 +29,7 @@ function Settings(props) {
             <div className='--settings animSettings' id='settings'>
                 <div>
                     <h1 className='--header-info' style={{color: '#3c3c3c', marginTop: '-2vh'}}>Mode</h1>
-                    <select name="modeselect" id="modeselect" className='select-type' onChange={handleSelect}>
+                    <select name="modeselect" id="modeselect" className='select-type' onChange={handleSelect} value={props.settings.mode.name}>
                         <option value="enghard">English (hard)</option>
                         <option value="en">English (easy)</option>
                         <option value="af">Afrikaans</option>
@@ -80,7 +80,7 @@ function Settings(props) {
                 </div>
                 <div>
                     <h1 className='--header-info' style={{color: '#3c3c3c', marginTop: '-2vh'}}>Display</h1>
-                    <select name="displayselect" id="displayselect" className='select-type' onChange={handleDisplay}>
+                    <select name="displayselect" id="displayselect" className='select-type' onChange={handleDisplay} value={props.settings.displayType}>
                         <option value="stacked">Stacked</option>
                         <option value="sequential">Sequential</option>
                         <option value="singular">Two word</option>

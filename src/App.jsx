@@ -208,12 +208,13 @@ function App() {
 
     return (
         <React.Fragment>
-            {settings.activated && !started && <Settings setSettings={setSettings} changeMode={changeMode} changeDisplay={changeDisplay}/>}
+            {settings.activated && !started && <Settings setSettings={setSettings} changeMode={changeMode} changeDisplay={changeDisplay} settings={settings}/>}
             {time <= 0 && <FinishScreen restart={restart} chartData={chartData} finishData={finishData} wordStorage={wordStorage} settings={settings} defTime={definedTime}/>}
             <Header time={time} words={wordStorage} started={started} defTime={definedTime} finishData={finishData}
             tools={{changeDef: setDefinedTime, changeTime: setTime, changeChartData: setChartData, changeFinishData: setFinishData, changeWordStorage: setWordStorage, changeSettings: setSettings}}/>
             <div className='--main-wrapper'>
-                {settings.displayType == 'stacked' && 
+                {
+                    settings.displayType == 'stacked' && 
                     (
                     <React.Fragment>
                         <Word size='0.8868' word={words[0]}/>
@@ -235,18 +236,18 @@ function App() {
                     <React.Fragment>
                         <div style={{width: '120%', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.1)', border: '0.2vw solid white'}}>
                             <div style={{display: 'flex', alignItems: 'center', overflowWrap: 'normal', justifyContent: 'space-evenly', overflow: 'hidden'}}>
-                                <Word size='3.1239' word={words[0]}/>
-                                <Word size='3.1239' word={words[1]}/>
-                                <Word size='3.1239' word={words[2]}/>
-                                <Word size='3.1239' word={words[3]}/>
+                                <Word size='3.1239' word={words[0]} className="rightM"/>
+                                <Word size='3.1239' word={words[1]} className="rightM"/>
+                                <Word size='3.1239' word={words[2]} className="rightM"/>
+                                <Word size='3.1239' word={words[3]} className="rightM"/>
                                 <div>
-                                    <textarea className='--main-word' rows='1' cols={words[4].body.length} value={words[4].body} style={{fontSize: '3.1239vw'}}></textarea>
+                                    <textarea className='--main-word' rows='1' cols={words[4].body.length} value={words[4].body} style={{fontSize: '3.1239vw'}}></textarea>{" "}
                                     <textarea className='--main-input' onInput={settings.mode.loaded ? handleMainInput : () => {console.log(Loading)}} rows='1' cols={words[4].body.length > input.length ? words[4].body.length : input.length} 
-                                    name='input' value={input} style={{color:correct ? 'rgb(54, 54, 54)' : 'red', fontSize: '3.1239vw'}} spellCheck='false' maxLength={20} id='minput'></textarea>
+                                    name='input' value={input} style={{color:correct ? 'rgb(54, 54, 54)' : 'red', fontSize: '3.1239vw'}} spellCheck='false' maxLength={20} id='minput'></textarea>{" "}
                                 </div>
-                                <Word size='3.1239' word={words[5]}/>
-                                <Word size='3.1239' word={words[6]}/>
-                                <Word size='3.1239' word={words[7]}/>
+                                <Word size='3.1239' word={words[5]} className="rightM"/>
+                                <Word size='3.1239' word={words[6]} className="rightM"/>
+                                <Word size='3.1239' word={words[7]} className="rightM"/>
                                 <Word size='3.1239' word={words[8]}/>
                             </div>
                         </div>
