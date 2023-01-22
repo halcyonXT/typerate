@@ -8,6 +8,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    PointElement,
   } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
@@ -23,9 +24,10 @@ ChartJS.defaults.font.family = 'Roboto Mono'
 ChartJS.defaults.color = 'rgb(255,255,255,0.7)'
 ChartJS.defaults.borderColor = '#919191'
 ChartJS.defaults.backgroundColor= '#919191'
+ChartJS.register(PointElement)
 function DataDisp({left, right}) {
     return (
-        <div style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c', marginTop: '0.4vw'}}>
+        <div style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center'}} className='--finish-elements'>
             <h3 className="--finish-results-text">{left}</h3>
             <h3 className="--finish-results-text --frtr">{right}</h3>
         </div>
@@ -34,10 +36,11 @@ function DataDisp({left, right}) {
   
 function FinishScreen(props) {
     const [labels, setLabels] = React.useState()
-    const [wpm, setWpm] = React.useState()
-    const [cpm, setCpm] = React.useState()
+    const [wpm, setWpm] = React.useState([0])
+    const [cpm, setCpm] = React.useState([0])
     const [chartWPM, setChartWPM] = React.useState(null)
     const [chartCPM, setChartCPM] = React.useState(null)
+    const [avg, setAvg] = React.useState({wpm: 0, cpm: 0})
     const [total, setTotal] = React.useState({
         totalChars: 0,
         totalWords: 0,
@@ -89,13 +92,13 @@ function FinishScreen(props) {
     
         let dataWPM = {
             labels,
-            datasets: [
+            datasets:[
                 {
                 label: 'WPM',
                 data: wpm,
                 backgroundColor: 'rgba(230, 220, 220, 0.8)',
                 },
-            ],
+            ]
         };
 
         let dataCPM = {
@@ -106,8 +109,8 @@ function FinishScreen(props) {
                 data: cpm,
                 backgroundColor: 'rgba(230, 98, 98, 0.8)',
                 border: '1px solid white'
-                },
-            ],
+                }
+            ]
         } 
         let optionsCPM = {
             responsive: true,
@@ -120,7 +123,7 @@ function FinishScreen(props) {
             },
         };
         setChartWPM(<Bar options={optionsWPM} data={dataWPM} className='--finish-chart bott'/>)
-        setChartCPM(<Bar options={optionsCPM} data={dataCPM} className='--finish-chart'/>)
+        setChartCPM(<Bar options={optionsCPM} data={dataCPM} className='--finish-chart '/>)
         setTotal(prev => {
             let sumC = 0, sumM = 0
             for (let item of props.wordStorage) {
@@ -147,40 +150,59 @@ function FinishScreen(props) {
             })
         })
     }, [labels])
+    //<DataDisp left={((wpm.reduce(sum)) / wpm.length).toFixed(2)} right="Average WPM"/>
+    //<DataDisp left={((cpm.reduce(sum)) / cpm.length).toFixed(2)} right="Average CPM"/>
+    const sumOfAll = (arr) => {
+        let outp = 0
+        if (arr===null || arr==="" || arr===undefined) {return}
+        if (arr.length == 0) {return}
+        for (let item of arr) {outp += Number(item)}
+        return outp
+    }
 
+    React.useEffect(() => {
+        if (wpm.length > 0 && cpm.length > 0) {
+            setAvg(({
+                wpm: (sumOfAll(wpm) / wpm.length).toFixed(2),
+                cpm: (sumOfAll(cpm) / cpm.length).toFixed(2)
+            }))
+        }
+    }, [wpm, cpm])
     return (
         <div className='--finish-wrapper showOver' id='finishwr'>
             <div className='--finish-container showBox' id='finish'>
                 <div style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                    <div style={{display: 'flex', flexDirection: 'column', width: '46%', height: '100%', justifyContent: 'space-between',backgroundColor: '#3c3c3c', height: '78.1vh'
-                    , marginTop: '-4.1vh', padding: '0vh 1vh 0vh 1vh', marginLeft: '-1vh', borderLeft: '0.1vw solid white', borderRight: '0.1vw solid white' }}>
+                    <div style={{display: 'flex', flexDirection: 'column', width: '46%', height: '100%', justifyContent: 'space-around',backgroundColor: '#3c3c3c', height: '78.1vh'
+                    , marginTop: '-4.1vh', padding: '0vh 1vh 0vh 1vh', marginLeft: '-1vh' }}>
                         <h1 className='--finish-title'>Final results</h1>
                         <div className='--finish-results'>
                             <DataDisp left={props.finishData.WPM} right="WPM"/>
                             <DataDisp left={props.finishData.maxWPM} right="Max WPM"/>
+                            <DataDisp left={avg.wpm} right="Average WPM"/>
                             <DataDisp left={props.finishData.CPM} right="CPM"/>
                             <DataDisp left={props.finishData.maxCPM} right="Max CPM"/>
+                            <DataDisp left={avg.cpm} right="Average CPM"/>
                             <DataDisp left={props.finishData.accuracy} right="Accuracy"/>
                             <DataDisp left={props.defTime / 1000} right="Time (s)"/>
                             <DataDisp left={props.settings.mode.dispName} right="Mode"/>
                             <DataDisp left={total.totalChars} right="Total characters"/>
                             <DataDisp left={total.totalWords} right="Total words"/>
                             <DataDisp left={total.totalMissed} right="Total missed"/>
-                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c', marginTop: '0.4vw'}}>
-                                <summary className="--finish-results-text">All words</summary>
+                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#343434'}}>
+                                <summary className="--finish-results-text --finish-elements">All words</summary>
                                 <p className='--summary-txt'>{all.words.join(', ')}</p>
                             </details>
-                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c', marginTop: '0.4vw'}}>
-                                <summary className="--finish-results-text">All missed words</summary>
+                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c'}}>
+                                <summary className="--finish-results-text --finish-elements">All missed words</summary>
                                 <p className='--summary-txt'>{all.missed.join(', ')}</p>
                             </details>
                         </div>
                     </div>
                     <div className='--chart-wrapper'>
-                        <div style={{width:'100%'}}>
+                        <div style={{width:'100%'}} className='--chart'>
                             {chartWPM != null && chartWPM}
                         </div>
-                        <div style={{width:'100%'}}>
+                        <div style={{width:'100%'}} className='--chart'>
                             {chartCPM != null && chartCPM}
                         </div>
                         <button id='rst' className='--restart-btn' onClick={handleRestart}><img className='--restart-img' src={restarticon}/></button>

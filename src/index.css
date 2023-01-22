@@ -7,11 +7,12 @@ body {
 
 .--header {
     height: 12vh;
-    background: linear-gradient(180deg, gray, rgb(122, 122, 122));
+    background: linear-gradient(180deg, gray, rgb(110, 110, 110));
     display:flex;
     justify-content: space-between;
     align-items: center;
     padding: 0px 3.9308vw 0px 3.9308vw;
+    border-bottom: 0.1vw solid rgb(100, 100,100);
     /*box-shadow: rgb(192, 192, 192) 0px 5px 15px;*/
 }
 
@@ -224,6 +225,7 @@ body {
     padding: 0.2vw;
     font-size: 1.9157vw;
     text-align: center;
+    user-select: none;
 }
 
 .--header-info-sub {
@@ -422,14 +424,25 @@ body {
     font-size: 2.0953vw;
     color:white;
     font-weight: 700;
+    text-shadow: #3c3c3c 0px 0.15vw 0px, #1c1c1c 0vw 0.3017vw 0px;
 }
 
 .--finish-results {
-    height: 59vh;
+    height: 56.7vh;
     background-color: #3c3c3c;
     width: 100%;
     border-radius: 0.4vw;
-    overflow-y:auto
+    overflow-y:auto;
+    border: 0.1vw solid white;
+    margin-top: -2vw;
+}
+
+.--finish-results > .--finish-elements:nth-child(even) {
+    background-color: #1c1c1c;
+}
+
+.--finish-results > .--finish-elements:nth-child(odd) {
+    background-color: #343434;
 }
 
 .--finish-results-text {
@@ -500,7 +513,7 @@ body {
 
 .--settings {
     width: 22vw;
-    height: 50%;
+    height: 80%;
     position: absolute;
     background-color: gray;
     left: calc(100% - 20vw);
@@ -612,10 +625,54 @@ body {
     height:78.2vh;
     background-color: #3c3c3c;
     justify-content: space-around;
-    border: 0.1vw solid white;
     border-top: none;
     border-bottom: none;
     padding-left: 0.3vw;
     padding-right: 0.3vw;
     margin-right: -1vh;
+}
+
+#rst {
+    border: none;
+    background-color: #727272;
+}
+
+#rst:active {
+    border-bottom: 0;
+    box-shadow: inset rgba(0, 0, 0, 0.514) 0px 0px 2vw;
+}
+
+.--chart {
+    background-color: #3c3c3c;
+}
+
+.slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;  
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
 }

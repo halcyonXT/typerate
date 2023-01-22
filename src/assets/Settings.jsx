@@ -2,6 +2,7 @@ import React from 'react'
 
 function Settings(props) {
 
+
     const handleClose = () => {
         document.getElementById('settings').classList.remove('animaSettings')
         document.getElementById('settings').classList.add('closeSettings')
@@ -19,7 +20,6 @@ function Settings(props) {
 
     const handleDisplay = (event) => props.changeDisplay(event.target.value)
 
-
     return (
         <React.Fragment>
             <div className='--settings-underlay showOver' id='underlay' onClick={handleClose}>
@@ -29,7 +29,7 @@ function Settings(props) {
                     <h1 className='--header-info --settings-info' style={{marginTop: '-2vh'}}>Mode</h1>
                     <select name="modeselect" id="modeselect" className='select-type' onChange={handleSelect} value={props.settings.mode.name}>
                         <option value="enghard">English (hard)</option>
-                        <option value="engmed">English (Medium)</option>
+                        <option value="engmed">English (medium)</option>
                         <option value="en">English (easy)</option>
                         <option value="af">Afrikaans</option>
                         <option value="ar">Arabic</option>
@@ -84,6 +84,21 @@ function Settings(props) {
                         <option value="sequential">Sequential</option>
                         <option value="singular">Two word</option>
                     </select>
+                </div>
+                <div>
+                    <div style={{display: 'flex', justifyContent: 'space-around',alignItems:'center', width: '22vw', backgroundColor: '#3c3c3c', border: '0.1vw solid white', borderLeft: '0', borderRight: '0', borderBottom: '0'}}>
+                        <h1 className='--header-info --settings-info' style={{fontSize: '1vw'}}>Chart elements</h1>
+                        <div class="slidecontainer">
+                            <input type="range" min="4" max="25" value={props.chartElements} className="slider" id="myRange" onChange={props.handleChartElements}/>
+                        </div>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'space-around',alignItems:'center', width: '22vw', backgroundColor: '#3c3c3c', border: '0.1vw solid white', borderLeft: '0', borderRight: '0', borderTop: '0'}}>
+                        <h1 className='--header-info --settings-info' style={{fontSize: '1vw'}}>Chart type&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                        <select style={{width:"33%"}} name="modeselect" id="modeselect" className='select-type' onChange={(event) => props.setChartType(event.target.value)} value={props.chartType}>
+                            <option value="bar">Bar</option>
+                            <option value="line">Line</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </React.Fragment>

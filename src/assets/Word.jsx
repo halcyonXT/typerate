@@ -2,10 +2,10 @@ import React from 'react'
 
 function Word(props){
     let styles = {}
+    let word = 0
     styles.fontSize = `${props.size}vw`
     styles.color = 'rgb(0,0,0,0.3)'
     if (props.word.status === 'incorrect') {
-        console.log(props.word.hasOwnProperty('accepted'))
         if (props.word.hasOwnProperty('accepted') && props.word.accepted == true) {
             styles.color = 'rgba(177, 201, 92, 0.829)'
         } else {
@@ -17,9 +17,14 @@ function Word(props){
     } else if (props.word.status === 'filler') {
         styles.color = 'rgba(0,0,0,0)'
     }
+    if (props.seq) {
+        word = <span className='--main-subword' style={styles}>{props.word.body}</span>
+    } else {
+        word = <h1 className='--main-subword' style={styles}>{props.word.body}</h1>
+    }
     return (
         <React.Fragment>
-            <h1 className='--main-subword' style={styles}>{props.word.body}</h1>
+            {word}
         </React.Fragment>
     )
 }

@@ -78,10 +78,10 @@ function Header(props) {
 
     React.useEffect(() => { //When the game starts, Header defines times at which it should log WPM and CPM for chart data
         if (props.started) {
-            let increment = Math.ceil((props.defTime / 7) / 100) * 100
+            let increment = Math.ceil((props.defTime / props.chartElements) / 100) * 100
             setTimeMarkers(prev => {
                 let outp = [increment]
-                for (let i = 1; i < 6; i++) {
+                for (let i = 1; i < props.chartElements - 1; i++) {
                     outp[i] = outp[i-1] + increment
                 }
                 return outp
@@ -135,7 +135,7 @@ function Header(props) {
                             <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.wpm}</h2>
                             <h2 className='--header-info label'>wpm</h2>
                         </div>
-                        <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
+                        <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'flex-end'}}>
                             <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.cpm}</h2>
                             <h2 className='--header-info label'>cpm</h2>
                         </div>
