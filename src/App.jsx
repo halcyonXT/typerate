@@ -64,7 +64,7 @@ function App() {
     }, [time])
     
     const changeMode = async (val) => {
-        if (val != 'enghard' && val != 'engeasy') {
+        if (val != 'enghard' && val != 'engeasy', val != 'engmed') {
             WORDS = new Array(10).fill('Loading...')
             setSettings(prev => {
                 let outp = {...prev}
@@ -93,7 +93,7 @@ function App() {
                 }
                 return outp
             })
-        } else {
+        } else if (val == 'enghard') {
             WORDS = []
             WORDS = wordList.slice(10000, 260000)
             setWords(prev => {
@@ -106,6 +106,31 @@ function App() {
                 }
                 return outp
             })
+        } else if (val == 'engmed') {
+            try {
+                let process = await fetch('https://raw.githubusercontent.com/rsms/inter/master/docs/lab/words-google-10000-english-usa-no-swears.json');
+                let data = await process.json('')
+                setSettings(prev => {
+                    let outp = {...prev}
+                    outp.mode.loaded = true
+                    outp.mode.dispName = "English (Medium)"
+                    return outp
+                })
+                WORDS = []
+                WORDS = data
+                setWords(prev => {
+                    let outp = []
+                    for (let i = 0; i < 9; i++) {
+                        outp[i] = {
+                            body: i < 4 ? 'o' : WORDS[Math.ceil(Math.random() * WORDS.length)],
+                            status: i < 4 ? 'filler' : 'queued'
+                        }
+                    }
+                    return outp
+                })
+            } catch (error) {
+                console.error(error)
+            }
         }
     }
     const changeDisplay = (val) => {
@@ -234,7 +259,7 @@ function App() {
                 {
                     settings.displayType == 'sequential' &&
                     <React.Fragment>
-                        <div style={{width: '120%', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.1)', border: '0.2vw solid white'}}>
+                        <div style={{width: '300%', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.1)', border: '0.2vw solid white'}}>
                             <div style={{display: 'flex', alignItems: 'center', overflowWrap: 'normal', justifyContent: 'space-evenly', overflow: 'hidden'}}>
                                 <Word size='3.1239' word={words[0]} className="rightM"/>
                                 <Word size='3.1239' word={words[1]} className="rightM"/>

@@ -2,8 +2,6 @@ import React from 'react'
 
 function Settings(props) {
 
-    const [selected, setSelected] = React.useState('enghard')
-
     const handleClose = () => {
         document.getElementById('settings').classList.remove('animaSettings')
         document.getElementById('settings').classList.add('closeSettings')
@@ -27,10 +25,11 @@ function Settings(props) {
             <div className='--settings-underlay showOver' id='underlay' onClick={handleClose}>
             </div>
             <div className='--settings animSettings' id='settings'>
-                <div>
-                    <h1 className='--header-info' style={{color: '#3c3c3c', marginTop: '-2vh'}}>Mode</h1>
+                <div className='--settings-items'>
+                    <h1 className='--header-info --settings-info' style={{marginTop: '-2vh'}}>Mode</h1>
                     <select name="modeselect" id="modeselect" className='select-type' onChange={handleSelect} value={props.settings.mode.name}>
                         <option value="enghard">English (hard)</option>
+                        <option value="engmed">English (Medium)</option>
                         <option value="en">English (easy)</option>
                         <option value="af">Afrikaans</option>
                         <option value="ar">Arabic</option>
@@ -78,8 +77,8 @@ function Settings(props) {
                         <option value="zh">Chinese</option>
                     </select>
                 </div>
-                <div>
-                    <h1 className='--header-info' style={{color: '#3c3c3c', marginTop: '-2vh'}}>Display</h1>
+                <div className='--settings-items'>
+                    <h1 className='--header-info --settings-info' style={{marginTop: '-2vh'}}>Display</h1>
                     <select name="displayselect" id="displayselect" className='select-type' onChange={handleDisplay} value={props.settings.displayType}>
                         <option value="stacked">Stacked</option>
                         <option value="sequential">Sequential</option>

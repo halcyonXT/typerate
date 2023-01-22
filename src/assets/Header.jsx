@@ -127,7 +127,7 @@ function Header(props) {
             <div className='--header-container' style={{width: '50%'}}>
                 <div className='--header-container items'>
                     <h1 className='--header-info'>{accuracy}%</h1>
-                    <h6 className='--header-info-sub'>Accuracy</h6>
+                    <h6 className='--header-info-sub --header-info-sub-acc'>ACCURACY</h6>
                 </div>
                 <div className='--header-container items'>
                     <div style={{width:'90%', textAlign: 'center'}}>
@@ -139,13 +139,13 @@ function Header(props) {
                             <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.cpm}</h2>
                             <h2 className='--header-info label'>cpm</h2>
                         </div>
-                        <h6 className='--header-info-sub' style={{left:'64.2%'}}>Speed</h6>
+                        <h6 className='--header-info-sub --header-info-sub-speed' style={{left:'69.4%'}}>SPEED</h6>
                     </div>
                 </div>
                 <div className='--header-container items'>
                     <input className='--header-time' spellCheck={false} ref={ref} onInput={handleTimeChange} 
                     value={props.started ? `${dispTime}s` : props.defTime/1000 + 's'}></input>
-                    <h6 className='--header-info-sub'>Time</h6>
+                    <h6 className='--header-info-sub --header-info-sub-time'>TIME</h6>
                 </div>
                 <div className='--header-container'>
                     <button className='--settings-btn' onClick={handleSettings}><img className='--settings-btn-icon' src={menuicon}></img></button>

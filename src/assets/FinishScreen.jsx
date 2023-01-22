@@ -20,6 +20,9 @@ ChartJS.register(
     Legend
 );
 ChartJS.defaults.font.family = 'Roboto Mono'
+ChartJS.defaults.color = 'rgb(255,255,255,0.7)'
+ChartJS.defaults.borderColor = '#919191'
+ChartJS.defaults.backgroundColor= '#919191'
 function DataDisp({left, right}) {
     return (
         <div style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c', marginTop: '0.4vw'}}>
@@ -90,7 +93,7 @@ function FinishScreen(props) {
                 {
                 label: 'WPM',
                 data: wpm,
-                backgroundColor: 'rgba(67, 67, 67, 0.8)',
+                backgroundColor: 'rgba(230, 220, 220, 0.8)',
                 },
             ],
         };
@@ -101,7 +104,8 @@ function FinishScreen(props) {
                 {
                 label: 'CPM',
                 data: cpm,
-                backgroundColor: 'rgba(220, 98, 98, 0.8)'
+                backgroundColor: 'rgba(230, 98, 98, 0.8)',
+                border: '1px solid white'
                 },
             ],
         } 
@@ -148,7 +152,8 @@ function FinishScreen(props) {
         <div className='--finish-wrapper showOver' id='finishwr'>
             <div className='--finish-container showBox' id='finish'>
                 <div style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                    <div style={{display: 'flex', flexDirection: 'column', width: '46%', height: '100%', justifyContent: 'space-between'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', width: '46%', height: '100%', justifyContent: 'space-between',backgroundColor: '#3c3c3c', height: '78.1vh'
+                    , marginTop: '-4.1vh', padding: '0vh 1vh 0vh 1vh', marginLeft: '-1vh', borderLeft: '0.1vw solid white', borderRight: '0.1vw solid white' }}>
                         <h1 className='--finish-title'>Final results</h1>
                         <div className='--finish-results'>
                             <DataDisp left={props.finishData.WPM} right="WPM"/>
@@ -171,7 +176,7 @@ function FinishScreen(props) {
                             </details>
                         </div>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', width: '50%',height: '100%'}}>
+                    <div className='--chart-wrapper'>
                         <div style={{width:'100%'}}>
                             {chartWPM != null && chartWPM}
                         </div>
