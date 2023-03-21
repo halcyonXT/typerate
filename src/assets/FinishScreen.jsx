@@ -22,8 +22,9 @@ ChartJS.register(
 );
 ChartJS.defaults.font.family = 'Roboto Mono'
 ChartJS.defaults.color = 'rgb(255,255,255,0.7)'
-ChartJS.defaults.borderColor = '#919191'
-ChartJS.defaults.backgroundColor= '#919191'
+ChartJS.defaults.borderColor = '#B1B1B1'
+ChartJS.defaults.borderRadius = '10px';
+
 ChartJS.register(PointElement)
 function DataDisp({left, right}) {
     return (
@@ -97,6 +98,7 @@ function FinishScreen(props) {
                 label: 'WPM',
                 data: wpm,
                 backgroundColor: 'rgba(230, 220, 220, 0.8)',
+                borderRadius: '10px',
                 },
             ]
         };
@@ -107,8 +109,8 @@ function FinishScreen(props) {
                 {
                 label: 'CPM',
                 data: cpm,
-                backgroundColor: 'rgba(230, 98, 98, 0.8)',
-                border: '1px solid white'
+                backgroundColor: 'rgba(230, 220, 220, 0.8)',
+                border: '1px solid white',
                 }
             ]
         } 
@@ -171,9 +173,8 @@ function FinishScreen(props) {
     return (
         <div className='--finish-wrapper showOver' id='finishwr'>
             <div className='--finish-container showBox' id='finish'>
-                <div style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                    <div style={{display: 'flex', flexDirection: 'column', width: '46%', height: '100%', justifyContent: 'space-around',backgroundColor: '#3c3c3c', height: '78.1vh'
-                    , marginTop: '-4.1vh', padding: '0vh 1vh 0vh 1vh', marginLeft: '-1vh' }}>
+                <div style={{display: 'flex', width: '100%', justifyContent: 'space-between',height: '100%'}} >
+                    <div className='--finish-stats-wrap'>
                         <h1 className='--finish-title'>Final results</h1>
                         <div className='--finish-results'>
                             <DataDisp left={props.finishData.WPM} right="WPM"/>
@@ -188,11 +189,11 @@ function FinishScreen(props) {
                             <DataDisp left={total.totalChars} right="Total characters"/>
                             <DataDisp left={total.totalWords} right="Total words"/>
                             <DataDisp left={total.totalMissed} right="Total missed"/>
-                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#343434'}}>
+                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.6)'}}>
                                 <summary className="--finish-results-text --finish-elements">All words</summary>
                                 <p className='--summary-txt'>{all.words.join(', ')}</p>
                             </details>
-                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1c1c1c'}}>
+                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.3)'}}>
                                 <summary className="--finish-results-text --finish-elements">All missed words</summary>
                                 <p className='--summary-txt'>{all.missed.join(', ')}</p>
                             </details>

@@ -1,5 +1,6 @@
 import React from 'react'
 import menuicon from './menu.png'
+import logoicon from './icon.png'
 
 function Header(props) {
     let [accuracy, setAccuracy] = React.useState(100)
@@ -55,10 +56,14 @@ function Header(props) {
             if (props.time <= 0) {return 0} else {return props.time / 1000}
         })
         if ((calcWPM()) > props.finishData.maxWPM) {
-            props.tools.changeFinishData(prev => ({...prev, maxWPM: calcWPM()}))
+            if (props.time < (props.defTime - (props.defTime / 5))) {
+                props.tools.changeFinishData(prev => ({...prev, maxWPM: calcWPM()}))
+            }
         }
         if (calcCPM() > props.finishData.maxCPM) {
-            props.tools.changeFinishData(prev => ({...prev, maxCPM: calcCPM()}))
+            if (props.time < (props.defTime - (props.defTime / 5))) {
+                props.tools.changeFinishData(prev => ({...prev, maxCPM: calcCPM()}))
+            }
         }
         if (timeMarkers.includes(props.time)) {
             props.tools.changeChartData(prev => [...prev, {
@@ -79,6 +84,7 @@ function Header(props) {
     React.useEffect(() => { //When the game starts, Header defines times at which it should log WPM and CPM for chart data
         if (props.started) {
             let increment = Math.ceil((props.defTime / props.chartElements) / 100) * 100
+            document.getElementById('check').disabled = true;
             setTimeMarkers(prev => {
                 let outp = [increment]
                 for (let i = 1; i < props.chartElements - 1; i++) {
@@ -86,6 +92,8 @@ function Header(props) {
                 }
                 return outp
             })
+        } else {
+            document.getElementById('check').disabled = false;
         }
     },[props.started])
 
@@ -116,12 +124,37 @@ function Header(props) {
         }
     }
 
-    const handleSettings = () => props.tools.changeSettings(prev => ({...prev, activated: !prev.activated}))
+
+    const handleClose = () => {
+        document.getElementById('settings').classList.remove('animaSettings')
+        document.getElementById('settings').classList.add('closeSettings')
+        setTimeout(() => {
+            props.tools.changeSettings(prev => ({...prev, activated: false}))
+        }, 500)
+    }
+
+    React.useEffect(() => {
+        if (props.settings.hideHeader && props.settings.hideHeaderShowCounter) {
+            const frames = [
+                {transform: 'scale(0.85)'},
+                {transfrom: 'scale(1)'}
+            ]
+            const timing = {
+                duration: 100,
+                iterations: 1,
+                fillMode: "forwards"
+            }
+            document.querySelector('.--header-off-wpm').animate(frames, timing)
+        }
+    },[props.words])
 
     return (
-        <div className='--header'>
+        <React.Fragment>
+        <div className='--header' 
+        style={{backdropFilter: props.settings.theme == "dark-zero" ? 'brightness(1.3)' : props.settings.theme == 'light-colorful' && 'blur(1vw) brightness(0.7)'}}>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <h1 className='--header-logo'>Typerate</h1>
+                <img src={logoicon} style={{height: '1.8vw', marginRight: '0.5vw', pointerEvents: 'none', marginTop: '0.3vw'}} />
+                <h1 className='--header-logo'>typerate</h1>
                 <div className='--header-blinker'></div>
             </div>
             <div className='--header-container' style={{width: '50%'}}>
@@ -148,10 +181,43 @@ function Header(props) {
                     <h6 className='--header-info-sub --header-info-sub-time'>TIME</h6>
                 </div>
                 <div className='--header-container'>
-                    <button className='--settings-btn' onClick={handleSettings}><img className='--settings-btn-icon' src={menuicon}></img></button>
+                    <button className='--settings-btn'>
+                        {/*<img className='--settings-btn-icon' src={menuicon}></img>*/}
+                        <label htmlFor="check" className='--settings-btn-label'
+>
+                            <input type="checkbox" id="check" onClick={() => {props.tools.changeSettings(prev => ({...prev, activated: !prev.activated}))}}/> 
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            
+                        </label>
+                    </button>
+                    
                 </div>
             </div>
         </div>
+        {
+            props.settings.hideHeader && props.settings.hideHeaderShowCounter &&
+            <div style={{position: 'absolute', bottom: '0', width: '100%', zIndex: '20', display: 'flex', justifyContent: 'space-between'}}>
+                <p className='--header-off-wpm headerless'>{Math.trunc(speed.wpm)}<span style={{color: 'rgba(255,255,255, 0.7)'}}>wpm</span></p>
+                <p className='--header-off-accuracy headerless'>{Math.trunc(accuracy)}%</p>
+            </div>
+
+        }
+        <div className='--header-off-time' style={
+            props.settings.hideHeader ? ({width: `${(props.time / props.defTime) * 100}vw`, top: '0', opacity: props.started ? '1' : '0'})
+            : ({width: `${(props.time / props.defTime) * 100}vw`, bottom: '0', opacity: props.started ? '1' : '0'})}>
+            {
+                props.settings.hideHeader &&
+                <React.Fragment>
+                    <h4 style={{color: 'rgba(255,255,255,0.4)', position: 'absolute', left: '0.5vw', top: '1.5vh', fontSize: '1vw'}}>typerate</h4>
+                    <h4 
+                    style={{position: 'absolute', left: `${(props.time / props.defTime) * 100 - 3.4}vw`, color: 'rgba(0,0,0,0.6)', fontSize: '1.2vw', top: '-2.5vh', fontWeight:'800',letterSpacing: '-0.1vw'}}
+                    >{dispTime.toFixed(1)}s</h4>
+                </React.Fragment>
+            }
+        </div>
+        </React.Fragment>
     )
 }
 

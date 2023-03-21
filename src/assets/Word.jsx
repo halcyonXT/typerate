@@ -4,16 +4,16 @@ function Word(props){
     let styles = {}
     let word = 0
     styles.fontSize = `${props.size}vw`
-    styles.color = 'rgb(0,0,0,0.3)'
+    styles.color = 'rgba(255, 255, 255, 0.4)'
     if (props.word.status === 'incorrect') {
         if (props.word.hasOwnProperty('accepted') && props.word.accepted == true) {
-            styles.color = 'rgba(177, 201, 92, 0.829)'
+            styles.color = 'rgba(177, 201, 92, 0.629)'
         } else {
-            styles.color = 'rgb(255, 0, 0, 0.6)'
+            styles.color = 'rgb(170, 120, 120, 0.6)'
             styles.textDecoration = 'line-through'
         }
     } else if (props.word.status === 'correct') {
-        styles.color = 'rgba(0, 177, 227, 0.781)'
+        styles.color = 'rgba(0, 177, 227, 0.681)'
     } else if (props.word.status === 'filler') {
         styles.color = 'rgba(0,0,0,0)'
     }
