@@ -136,11 +136,11 @@ function Header(props) {
     React.useEffect(() => {
         if (props.settings.hideHeader && props.settings.hideHeaderShowCounter) {
             const frames = [
-                {transform: 'scale(0.85)'},
-                {transfrom: 'scale(1)'}
+                {transform: 'scale(0.85)', opacity: '1'},
+                {transfrom: 'scale(1)', color: '0.75'}
             ]
             const timing = {
-                duration: 100,
+                duration: 200,
                 iterations: 1,
                 fillMode: "forwards"
             }

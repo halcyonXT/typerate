@@ -11,6 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
+  "main": "public/main.js",
   "dependencies": {
     "chart.js": "^4.2.0",
     "node-sass": "^8.0.0",

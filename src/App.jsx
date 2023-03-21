@@ -129,7 +129,7 @@ function App() {
             ]
             let randomTime = 0;
             while (randomTime < 2500) {
-                randomTime = Math.random() * 10000;
+                randomTime = Math.random() * 8000;
             }
             const timing = {
                 duration: randomTime,

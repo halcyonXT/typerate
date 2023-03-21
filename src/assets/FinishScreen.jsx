@@ -21,8 +21,8 @@ ChartJS.register(
     Legend
 );
 ChartJS.defaults.font.family = 'Roboto Mono'
-ChartJS.defaults.color = 'rgb(255,255,255,0.7)'
-ChartJS.defaults.borderColor = '#B1B1B1'
+ChartJS.defaults.color = 'rgb(255,255,255,0.9)'
+ChartJS.defaults.borderColor = 'rgb(0,0,0,0)'
 ChartJS.defaults.borderRadius = '10px';
 
 ChartJS.register(PointElement)
@@ -35,6 +35,8 @@ function DataDisp({left, right}) {
     )
 }
   
+
+
 function FinishScreen(props) {
     const [labels, setLabels] = React.useState()
     const [wpm, setWpm] = React.useState([0])
@@ -170,6 +172,10 @@ function FinishScreen(props) {
             }))
         }
     }, [wpm, cpm])
+
+    React.useEffect(() => {
+        document.querySelector('.--main-input').blur()
+    },[])
     return (
         <div className='--finish-wrapper showOver' id='finishwr'>
             <div className='--finish-container showBox' id='finish'>
