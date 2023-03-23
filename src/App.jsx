@@ -5,8 +5,9 @@ import Header from './assets/Header'
 import FinishScreen from './assets/FinishScreen'
 import Settings from './assets/Settings'
 import SeqeuntialDisplay from './assets/SequentialDisplay'
-import shootingstar from './assets/shootingstar.png'
-import starrybg from './assets/starrybg.png'
+import Backgrounds from './assets/Backgrounds'
+import BackgroundEffects from './assets/BackgroundEffects'
+import wrongpng from './assets/wrong.png'
 
 let WORDS = new Array(10).fill("loading");
 (async function() {
@@ -15,7 +16,7 @@ let WORDS = new Array(10).fill("loading");
 })();
 
 //fetch(`https://raw.githubusercontent.com/SMenigat/thousand-most-common-words/v1.0.1/words/fry.json`).then(res => res.json()).then(json => console.log(json))
-
+const toBool = (str) => str === 'true' ? true : str === 'false' ? false : null
 
 function App() {
     const [words, setWords] = useState(function(){ //State for words that should be typed
@@ -34,7 +35,26 @@ function App() {
     const [started, setStarted] = useState(false) //State that determines whether the user has started typing or not
     const [definedTime, setDefinedTime] = useState(30000) //State that determines what the defined time is
     const [chartData, setChartData] = useState([]) //State that keeps data used for chart building
+    const [time, setTime] = useState(definedTime) //State that keeps track of time rundown
+    const [settings, setSettings] = useState({ //State for all the user settings
+        activated: false, //whether to render settings or not
+        displayType:           localStorage.getItem("displayType") || "stacked",
+        theme:                 localStorage.getItem("theme") || 'dark-symposium',
+        leisure:               toBool(localStorage.getItem("leisure")) ?? true,
+        completionKey:         localStorage.getItem("completionKey") || 'space',
+        backgroundEffects:     toBool(localStorage.getItem("backgroundEffects")) ?? true,
+        stopOnIncorrect:       toBool(localStorage.getItem("stopOnIncorrect")) ?? false,
+        hideHeader:            toBool(localStorage.getItem("hideHeader")) ?? false,
+        hideHeaderShowCounter: toBool(localStorage.getItem("hideHeaderShowCounter")) ?? true,
+        mode: {
+            name: "enghard",
+            loaded: true,
+            dispName: "English (hard)"
+        }
+    })
     const [finishData, setFinishData] = useState({
+        autocompletion: settings.completionKey == "auto" ? true : false,
+        leisure: settings.leisure ? true : false,
         WPM: 0,
         CPM: 0,
         accuracy: 0,
@@ -43,23 +63,6 @@ function App() {
         totalWords: 0,
         totalCharacters: 0
     }) //State that keeps data used for finish container
-    const [time, setTime] = useState(definedTime) //State that keeps track of time rundown
-    const [settings, setSettings] = useState({ //State for all the user settings
-        activated: false, //whether to render settings or not
-        displayType: 'stacked',
-        theme: 'dark-symposium',
-        leisure: true,
-        completionKey: 'space',
-        backgroundEffects: true,
-        stopOnIncorrect: false,
-        hideHeader: false,
-        hideHeaderShowCounter: true,
-        mode: {
-            name: "enghard",
-            loaded: true,
-            dispName: "English (hard)"
-        }
-    })
     const [chartElements, setChartElements] = React.useState(25)
     const handleChartElements = (event) => {
         const value = event.target.value
@@ -69,7 +72,7 @@ function App() {
 
     const startedRef = React.useRef(started) //Reference to started state used for timer
     startedRef.current = started
-    
+
     useEffect(() => {
         setInterval(() => {
             if (startedRef.current) { //If the game has started deduct 100 else do nothing
@@ -115,7 +118,7 @@ function App() {
                 size = Math.random() * 5
             }
             target.style.height = `${size}vw`
-            target.style.filter = `blur(${((2.5 / (size - 2)) - 1).toFixed(2)}px)`
+            target.style.filter = `blur(${((2.5 / (size - 2)) * 0.1).toFixed(1)}px)`
             target.style.top = '-35vh'
 
             while (randomLeft < 50) {
@@ -146,6 +149,12 @@ function App() {
             }
         }
     }, [settings.theme, settings.backgroundEffects])
+
+    useEffect(() => {
+        for (let setting of Object.keys(settings)) {
+            localStorage.setItem(setting, settings[setting])
+        }
+    }, [settings])
 
     
     const changeMode = async (val) => {
@@ -315,7 +324,9 @@ function App() {
             return
         } 
         if (time > 0) {
-            setInput(value)
+            if (event.nativeEvent.data === " " && settings.completionKey === "auto") {
+                showAutoKeyNotice()
+            } else setInput(value);
             setCorrect(checkWord(value))
         }
     }
@@ -349,23 +360,49 @@ function App() {
         document.getElementById('minput').focus()
     }
 
+    const showAutoKeyNotice = () => {
+        const target = document.querySelector('.--main-auto-key-notice')
+        const frames = [
+            {top: '100%'},
+            {top: '92%'},
+            {top: '92%'},
+            {top: '92%'},
+            {top: '100%'},
+        ]
+        const timing = {
+            duration: 1500,
+            iterations: 1,
+        };
+        target.animate(frames, timing)
+    }
 
     return (
         <React.Fragment>
             {
-                (settings.theme == "dark-symposium"
-                || settings.theme == 'light-colorful') &&
+                settings.theme == "dark-symposium" && //unfortunately this has to be here
                 <React.Fragment>
-                <div className="black-wrap" style={{filter: settings.theme[0] == 'l' && 'invert(1)'}}></div>
-                <div className="main-grad-wrap">
-                    <div className="main-grad-magenta" style={{filter: settings.theme[0] == 'l' && 'invert(1)'}}></div>
-                    <div className="main-grad-blue" style={{filter: settings.theme[0] == 'l' && 'invert(1)'}}></div>
-                </div>
+                    <div className="black-wrap" style={{filter: settings.theme[0] == 'l' && 'invert(1)'}}></div>
+                    <div className="main-grad-wrap">
+                        <div className="main-grad-magenta"></div>
+                        <div className="main-grad-blue"></div>
+                    </div>
                 </React.Fragment>
             }
-            {time <= 0 && <FinishScreen restart={restart} chartData={chartData} finishData={finishData} wordStorage={wordStorage} settings={settings} defTime={definedTime}/>}
-            <Header chartElements={chartElements} time={time} words={wordStorage} started={started} defTime={definedTime} finishData={finishData} settings={settings}
-            tools={{changeDef: setDefinedTime, changeTime: setTime, changeChartData: setChartData, changeFinishData: setFinishData, changeWordStorage: setWordStorage, changeSettings: setSettings}}/>
+            {
+                time <= 0 
+                && 
+                <FinishScreen restart={restart} chartData={chartData} finishData={finishData} wordStorage={wordStorage} settings={settings} defTime={definedTime}/>
+            }
+            <Header 
+                chartElements={chartElements} 
+                time={time} 
+                words={wordStorage} 
+                started={started} 
+                defTime={definedTime} 
+                finishData={finishData} 
+                settings={settings}
+                tools={{changeDef: setDefinedTime, changeTime: setTime, changeChartData: setChartData, changeFinishData: setFinishData, changeWordStorage: setWordStorage, changeSettings: setSettings}}
+            />
             <div className='--main-wrapper'>
                 {
                     !settings.activated ?
@@ -385,7 +422,7 @@ function App() {
                             rows='1' cols={words[4].body.length > input.length ? words[4].body.length : input.length} 
                             name='input' 
                             value={input} 
-                            style={{color:correct ? 'rgba(255, 255, 255, 1)' : 'rgb(170, 20, 20, 0.8)'}} 
+                            style={{color:correct ? 'rgba(255, 255, 255, 1)' : 'rgb(170, 20, 20, 0.8)', transitionDuration: '0.09s'}} 
                             spellCheck='false' maxLength={20} id='minput'></textarea>
                             <Word size='3.4239' word={words[5]}/>
                             <Word size='2.0447' word={words[6]}/>
@@ -418,74 +455,23 @@ function App() {
                     :
 
                     settings.activated && !started && 
-                    <Settings handleChartElements={handleChartElements} 
-                    setChartElements={setChartElements} 
-                    chartElements={chartElements} 
-                    setSettings={setSettings} 
-                    changeMode={changeMode} 
-                    changeDisplay={changeDisplay} 
-                    chartType={chartType} 
-                    setChartType={setChartType}
-                    settings={settings}/>
+                    <Settings 
+                        handleChartElements={handleChartElements} 
+                        setChartElements={setChartElements} 
+                        chartElements={chartElements} 
+                        setSettings={setSettings} 
+                        changeMode={changeMode} 
+                        changeDisplay={changeDisplay} 
+                        chartType={chartType} 
+                        setChartType={setChartType}
+                        settings={settings}
+                    />
                 }
-                {
-                    settings.theme == "dark-symposium" && settings.backgroundEffects &&
-                    <ul className="circles">
-                        <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-                    </ul>
-                }
-                {
-                    settings.theme == "dark-starry" &&
-                    <React.Fragment>
-                    <div className="black-wrap">
-                        
-                    </div>
-                    <div className="main-star-wrap" id="stars-bg" style={{position: 'absolute', background: `radial-gradient(ellipse at bottom, #0d1d31 0%, #090a0d 100%)`}}>
-                    {
-                    settings.backgroundEffects && //if bg effects are on display da stars
-                        <React.Fragment>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        <img src={shootingstar} className='main-star-star'/>
-                        </React.Fragment>
-                    }
-                    </div>
-                    </React.Fragment>
-                }
-                {
-                    settings.theme == 'dark-zero' &&
-                    <div className="main-zero-wrap"></div>
-                }
+                <Backgrounds theme={settings.theme} backgroundEffects={settings.backgroundEffects}/>
+                <div className="--main-auto-key-notice">
+                    <img src={wrongpng} style={{height: '16px', marginRight: '0.5vw'}}/>
+                    Spaces aren't allowed in auto completion mode
+                </div>
             </div>
         </React.Fragment>
     )

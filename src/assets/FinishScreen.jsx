@@ -1,5 +1,7 @@
 import React from 'react'
 import restarticon from './restarticon.png'
+import detailspng from  './details.png'
+import logoicon from './icon.png'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -177,46 +179,65 @@ function FinishScreen(props) {
         document.querySelector('.--main-input').blur()
     },[])
     return (
-        <div className='--finish-wrapper showOver' id='finishwr'>
-            <div className='--finish-container showBox' id='finish'>
-                <div style={{display: 'flex', width: '100%', justifyContent: 'space-between',height: '100%'}} >
-                    <div className='--finish-stats-wrap'>
-                        <h1 className='--finish-title'>Final results</h1>
-                        <div className='--finish-results'>
-                            <DataDisp left={props.finishData.WPM} right="WPM"/>
-                            <DataDisp left={props.finishData.maxWPM} right="Max WPM"/>
-                            <DataDisp left={avg.wpm} right="Average WPM"/>
-                            <DataDisp left={props.finishData.CPM} right="CPM"/>
-                            <DataDisp left={props.finishData.maxCPM} right="Max CPM"/>
-                            <DataDisp left={avg.cpm} right="Average CPM"/>
-                            <DataDisp left={props.finishData.accuracy} right="Accuracy"/>
-                            <DataDisp left={props.defTime / 1000} right="Time (s)"/>
-                            <DataDisp left={props.settings.mode.dispName} right="Mode"/>
-                            <DataDisp left={total.totalChars} right="Total characters"/>
-                            <DataDisp left={total.totalWords} right="Total words"/>
-                            <DataDisp left={total.totalMissed} right="Total missed"/>
-                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.6)'}}>
-                                <summary className="--finish-results-text --finish-elements">All words</summary>
-                                <p className='--summary-txt'>{all.words.join(', ')}</p>
-                            </details>
-                            <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.3)'}}>
-                                <summary className="--finish-results-text --finish-elements">All missed words</summary>
-                                <p className='--summary-txt'>{all.missed.join(', ')}</p>
-                            </details>
-                        </div>
-                    </div>
-                    <div className='--chart-wrapper'>
-                        <div style={{width:'100%'}} className='--chart'>
-                            {chartWPM != null && chartWPM}
-                        </div>
-                        <div style={{width:'100%'}} className='--chart'>
-                            {chartCPM != null && chartCPM}
-                        </div>
-                        <button id='rst' className='--restart-btn' onClick={handleRestart}><img className='--restart-img' src={restarticon}/></button>
+        <React.Fragment>
+            <div className='--finish-wrapper showOver' id='finishwr'></div>
+                <div className='--finish-container showBox' id='finish'>
+                <div className='--finish-header'>
+                    <h1 className='--finish-title'>
+                        <img src={logoicon} style={{height: '3.8vh', marginBottom: '-0.5vh', marginRight:'1vw'}}/>
+                        Final results
+                    </h1>
+                    <div style={{display: 'flex', justifyContent: 'space-between', width: '7vw'}}>
+                        <button className='--restart-btn'>
+                            <img className='--restart-img' src={detailspng}/>
+                        </button>
+                        <button id='rst' className='--restart-btn'>
+                            <img className='--restart-img' src={restarticon}  onClick={handleRestart}/>
+                        </button>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div style={{width: '100%', height: '7vh'}}>
+                </div>
+                    <div style={{display: 'flex', width: '100%', justifyContent: 'space-between',height: '100%', marginTop: '-1vh',paddingBottom: '10vh'}} >
+                        <div className='--finish-stats-wrap'>
+                            {//<h1 className='--finish-title'>Final results</h1>
+                            }
+                            <div className='--finish-results'>
+                                <DataDisp left={props.finishData.WPM} right="WPM"/>
+                                <DataDisp left={props.finishData.CPM} right="CPM"/>
+                                <DataDisp left={props.finishData.maxWPM} right="Max WPM"/>
+                                <DataDisp left={props.finishData.maxCPM} right="Max CPM"/>
+                                <DataDisp left={avg.wpm} right="Average WPM"/>
+                                <DataDisp left={avg.cpm} right="Average CPM"/>
+                                <DataDisp left={props.finishData.autocompletion ? "On" : "Off"} right="Autocompletion"/>
+                                <DataDisp left={props.finishData.leisure ? "On" : "Off"} right="Leisure"/>
+                                <DataDisp left={props.finishData.accuracy} right="Accuracy"/>
+                                <DataDisp left={props.defTime / 1000} right="Time (s)"/>
+                                <DataDisp left={props.settings.mode.dispName} right="Mode"/>
+                                <DataDisp left={total.totalChars} right="Total characters"/>
+                                <DataDisp left={total.totalWords} right="Total words"/>
+                                <DataDisp left={total.totalMissed} right="Total missed"/>
+                                <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.6)'}}>
+                                    <summary className="--finish-results-text --finish-elements">All words</summary>
+                                    <p className='--summary-txt'>{all.words.join(', ')}</p>
+                                </details>
+                                <details style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(0,0,0,0.3)'}}>
+                                    <summary className="--finish-results-text --finish-elements">All missed words</summary>
+                                    <p className='--summary-txt'>{all.missed.join(', ')}</p>
+                                </details>
+                            </div>
+                        </div>
+                        <div className='--chart-wrapper'>
+                            <div style={{width:'100%'}} className='--chart'>
+                                {chartWPM != null && chartWPM}
+                            </div>
+                            <div style={{width:'100%'}} className='--chart'>
+                                {chartCPM != null && chartCPM}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </React.Fragment>
     )
 }
 

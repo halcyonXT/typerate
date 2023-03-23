@@ -74,3 +74,17 @@
     display: flex;
     justify-content: space-between;
 }
+
+.--main-auto-key-notice {
+    position: absolute;
+    top: 100%;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 1vh;
+    color: rgba(235, 81, 98);
+    background-color: rgba(238, 210, 213, 0.89);
+    height: 3vh;
+    padding: 0 0.5vw 0 0.5vw;
+}

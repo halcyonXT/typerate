@@ -90,20 +90,20 @@
 /* color background effect */
 @keyframes backdrop {
     0% {
-        opacity: 0.85;
-        filter: hue-rotate(0deg)
+        opacity: 1;
+        filter: hue-rotate(0deg) brightness(0.85)
     }
     33% {
-        opacity: 0.95;
-        filter: hue-rotate(90deg)
+        opacity: 1;
+        filter: hue-rotate(90deg) brightness(1)
     }
     66% {
-        opacity: 0.85;
-        filter: hue-rotate(180deg);
+        opacity: 1;
+        filter: hue-rotate(180deg) brightness(0.85);
     }
     100% {
-        opacity: 0.95;
-        filter: hue-rotate(270deg);
+        opacity: 1;
+        filter: hue-rotate(270deg) brightness(1);
     }
 
 }
@@ -113,7 +113,7 @@
         transform: scale(1);
     }
     to {
-        transform: scale(0.95);
+        transform: scale(0.9);
     }
 }
 

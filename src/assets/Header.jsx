@@ -1,6 +1,7 @@
 import React from 'react'
 import menuicon from './menu.png'
 import logoicon from './icon.png'
+import headerpanelpng from './headerpanels.png'
 
 function Header(props) {
     let [accuracy, setAccuracy] = React.useState(100)
@@ -92,6 +93,7 @@ function Header(props) {
                 }
                 return outp
             })
+            props.tools.changeFinishData(prev => ({...prev, autocompletion: props.settings.completionKey == "auto" ? true : false, leisure: props.settings.leisure ? true : false}))
         } else {
             document.getElementById('check').disabled = false;
         }
@@ -134,7 +136,7 @@ function Header(props) {
     }
 
     React.useEffect(() => {
-        if (props.settings.hideHeader && props.settings.hideHeaderShowCounter) {
+        if (props.settings.hideHeader && props.settings.hideHeaderShowCounter && props.started) {
             const frames = [
                 {transform: 'scale(0.85)', opacity: '1'},
                 {transfrom: 'scale(1)', color: '0.75'}
@@ -153,34 +155,44 @@ function Header(props) {
         <div className='--header' 
         style={{backdropFilter: props.settings.theme == "dark-zero" ? 'brightness(1.3)' : props.settings.theme == 'light-colorful' && 'blur(1vw) brightness(0.7)'}}>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <img src={logoicon} style={{height: '1.8vw', marginRight: '0.5vw', pointerEvents: 'none', marginTop: '0.3vw'}} />
+                <img src={logoicon} style={{height: '1.7vw', marginRight: '0.5vw', pointerEvents: 'none', marginTop: '0.3vw'}} />
                 <h1 className='--header-logo'>typerate</h1>
                 <div className='--header-blinker'></div>
             </div>
-            <div className='--header-container' style={{width: '50%'}}>
-                <div className='--header-container items'>
+            <div className='--header-container' style={{width: '39%', paddingRight:'1vw'}}>
+                <div className='--header-container items-main'>
+                    <div className='items'>
+                        <img src={headerpanelpng} className='--header-panel-image'/>
+                    </div>
                     <h1 className='--header-info'>{accuracy}%</h1>
                     <h6 className='--header-info-sub --header-info-sub-acc'>ACCURACY</h6>
                 </div>
-                <div className='--header-container items'>
-                    <div style={{width:'90%', textAlign: 'center'}}>
-                        <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
-                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.wpm}</h2>
-                            <h2 className='--header-info label'>wpm</h2>
-                        </div>
-                        <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'flex-end'}}>
-                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.cpm}</h2>
-                            <h2 className='--header-info label'>cpm</h2>
-                        </div>
-                        <h6 className='--header-info-sub --header-info-sub-speed' style={{left:'69.4%'}}>SPEED</h6>
+                <div className='--header-container items-main'>
+                    <div className='items'>
+                        <img src={headerpanelpng} className='--header-panel-image'/>
                     </div>
+                    <div style={{width:'100%', textAlign: 'center', marginTop: '1vh'}}>
+                        <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'center', fontStyle: 'italic', marginLeft: '-0.2vw'}}>
+                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.wpm}</h2>
+                            <h2 className='--header-info label' style={{paddingRight: '0.7vw'}}>wpm</h2>
+                        </div>
+                        <div style={{display: 'flex', justifyContent:'space-between', alignItems: 'flex-end', fontStyle: 'italic', marginLeft: '-0.4vw'}}>
+                            <h2 className='--header-info cwpm' style={{margin:0, fontSize: '1.3057vw'}}>{speed.cpm}</h2>
+                            <h2 className='--header-info label' style={{paddingRight: '0.9vw'}}>cpm</h2>
+                        </div>
+                    </div>
+                    <h6 className='--header-info-sub --header-info-sub-speed'>SPEED</h6>
                 </div>
-                <div className='--header-container items'>
+                <div className='--header-container items-main'>
+                    <div className='items'>
+                        <img src={headerpanelpng} className='--header-panel-image'/>
+                    </div>
                     <input className='--header-time' spellCheck={false} ref={ref} onInput={handleTimeChange} 
+                    style={{fontWeight: '400', fontStyle: 'italic', position: 'absolute', zIndex: '5', marginLeft: '-1vw'}} maxLength='4'
                     value={props.started ? `${dispTime}s` : props.defTime/1000 + 's'}></input>
                     <h6 className='--header-info-sub --header-info-sub-time'>TIME</h6>
                 </div>
-                <div className='--header-container'>
+                <div className='--header-container' style={{padding: '0 1vw 0 1vw'}}>
                     <button className='--settings-btn'>
                         {/*<img className='--settings-btn-icon' src={menuicon}></img>*/}
                         <label htmlFor="check" className='--settings-btn-label'

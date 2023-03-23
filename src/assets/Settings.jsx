@@ -1,4 +1,5 @@
 import React from 'react'
+import defaultpng from "./default.png"
 
 function Settings(props) {
 
@@ -94,9 +95,8 @@ function Settings(props) {
                                 <input type="checkbox" class="switch" checked={props.settings.hideHeader} onClick={() => toggleSwitch("hideHeader")}/>
                             </div>
                         </div>
-                        {
-                            props.settings.hideHeader &&
-                            <div className='--settings-panel-option-div'>
+
+                            <div className='--settings-panel-option-div' style={{opacity: !props.settings.hideHeader && '0.4', pointerEvents: !props.settings.hideHeader && 'none'}}>
                             <label for="displayselecttitle" className="--settings-panel-option-info settingshideinfo">Choose if you want counters displaying during gameplay</label>
                             <label for="modeselect" className='--settings-panel-option' 
                             onMouseEnter={revealOptionInfo} onMouseLeave={revealOptionInfo} opacity="0">Show&nbsp;counters&nbsp;during&nbsp;gameplay:</label>
@@ -104,7 +104,7 @@ function Settings(props) {
                                 <input type="checkbox" class="switch" checked={props.settings.hideHeaderShowCounter} onClick={() => toggleSwitch("hideHeaderShowCounter")}/>
                             </div>
                             </div>
-                        }
+
                     </fieldset>
                     <fieldset>
                         <legend>GAMEPLAY</legend>
@@ -197,9 +197,22 @@ function Settings(props) {
                         </div>
                     </fieldset>
                 </div>
-                <div className='--settings-panel'></div>
+                <div className='--settings-panel'>
+                    <fieldset style={{padding: '0'}}>
+                        <legend>ACCOUNT</legend>
+                        <div style={{height:'14vh', width: '100%'}}>
+                            <img src={defaultpng} className="--settings-profile-picture" />
+                        </div>
+                    </fieldset>
+                </div>
             </div>
-            {/*
+        </React.Fragment>
+    )
+}
+
+export default React.memo(Settings)
+
+/*
             <div className={`--settings ${props.settings.activated ? `animSettings` : `closeSettings`}`} id='settings'>
                 <div className='--settings-items'>
                     <h1 className='--header-info --settings-info' style={{marginTop: '-2vh'}}>Mode</h1>
@@ -276,9 +289,4 @@ function Settings(props) {
                         </select>
                     </div>
                 </div></div>
-                */}
-        </React.Fragment>
-    )
-}
-
-export default React.memo(Settings)
+                */
