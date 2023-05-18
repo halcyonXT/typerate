@@ -1,0 +1,126 @@
+.--seq-wrap {
+    width: 75vw;
+    height: max-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    align-items: flex-start;
+    margin-top: -4vh;
+    position: relative;
+}
+
+.--seq-placeholder {
+    color: white;
+    opacity: 0.4;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+    position: absolute;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+    margin: 0.3931rem;
+    z-index: -1;
+    text-indent: 0.3rem;
+}
+
+.--seq-main-input {
+    background: transparent;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+    text-align: left;
+    outline: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    margin: 0.3931rem;
+    resize: none;
+    text-indent: 0.3rem;
+}
+
+.--seq-pseudomain {
+    position: absolute;
+    color: white;
+    opacity: 0.45;
+    resize: none;
+    font-size: 3rem;
+    width: 75vw;
+    height: 30vh;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    overflow: hidden;
+    white-space: pre-wrap;
+    pointer-events: none;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+}
+
+.--seq-main {
+    position: absolute;
+    color: white;
+    opacity: 1;
+    resize: none;
+    font-size: 3rem;
+    width: 75vw;
+    height: 30vh;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    overflow: hidden;
+    white-space: pre-wrap;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-family: 'Roboto Mono', monospace;
+}
+
+
+
+
+
+
+
+/*.--seq-main {
+    min-width: 59%;
+    max-width: 59%;
+    padding-right: 121%;
+    left: -42.4%;
+    background-color: rgb(0,0,0,0.2);
+    border: 0.2rem solid white;
+    font-size: 3.5rem;
+    min-height: 5rem;
+    max-height: 5rem;
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    color: white;
+    outline: 0;
+    border-left: 0;
+    border-right: 0;
+    overflow: hidden;47
+    white-space:pre;
+    resize: none;
+    position: absolute;
+    text-align: right;
+}
+
+.--seq-pseudomain {
+    min-width: 100%;
+    max-width: 100%;
+    font-size: 3.5rem;
+    min-height: 5rem;
+    max-height: 5rem;
+    padding-top: 1rem;
+    color: rgba(255, 255, 255, 0.295);
+    outline: 0;
+    border-left: 0;
+    border-right: 0;
+    overflow: hidden;
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    white-space: pre;
+    -webkit-user-drag: none;
+}*/

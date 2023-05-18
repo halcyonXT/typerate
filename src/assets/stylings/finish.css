@@ -1,0 +1,181 @@
+
+.--restart-btn {
+    display: block;
+    background: transparent;
+    border-radius: 0.4rem;
+    width: 3.417rem;
+    height: 3.417rem;
+    border: 0;
+    outline: 0;
+}
+
+#rst:active {
+    transition-duration: 0.2s;
+    animation: clickanimation 0.1s ease-out 0s 1 alternate;
+    animation-fill-mode: forwards;
+}
+
+.--restart-img {
+    height:1.3585rem;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.--restart-img:hover {
+    filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.493));
+    cursor: pointer;
+}
+
+.--finish-wrapper {
+    position: absolute;
+    z-index: 100;
+    height: 100vh;
+    width: 100rem;
+    background-color: rgba(0, 0, 0, 0.278); 
+    display:grid;
+    place-items: center;
+    backdrop-filter: blur(0.3rem);
+}
+
+/*style={{display: 'flex', 
+                    position:'absolute', width: '57.4rem', alignItems: 'center', justifyContent: 'space-around', marginTop: '1vh', backgroundColor: 'rgba(0,0,0,0.5)', marginLeft: '-1.2rem'}}*/
+.--finish-header {
+    display: flex;
+    position: absolute;
+    width: 55rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    height: max-content;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-left: -1.2rem;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(120deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+}
+
+.--finish-container {
+    position:absolute;
+    width: 55rem;
+    height: 70vh;
+    /*box-shadow: rgba(255, 255, 255, 0.4) 0px 0px 20px;*/
+    padding: 0 1.2rem 0 1.2rem;
+    backdrop-filter: brightness(1.3) blur(6rem);
+    padding-bottom: 0.2vh;
+    left: 22.5rem;
+    top: 15vh;
+    z-index:100;
+    border-width: 1px;
+    border-style: double;
+    border-image: linear-gradient(150deg, #ffffff 0%, #ffffff00 30%, #ffffff00 60%, #ffffff) 30;
+    mix-blend-mode: luminosity;
+    box-sizing: content-box;
+}
+
+.--finish-stats-wrap {
+    /*style={{display: 'flex', flexDirection: 'column', width: '46%', height: '100%', justifyContent: 'space-around', padding: '0vh 1vh 0vh 1vh'}}*/
+    display: flex;
+    flex-direction: column;
+    width: 46%;
+    height: 100%;
+    justify-content: space-evenly;
+    padding: 0 0.2vh 0 1vh;
+}
+
+.showBox {
+    animation-name: showBox;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+.closeBox {
+    animation-name: closeBox;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+
+.showOver {
+    animation-name: showOverlay;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+.closeOver {
+    animation-name: closeOverlay;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+.--finish-chart {
+    width: 20rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.--finish-title {
+    text-align: left;
+    font-size: 2.0953rem;
+    color:white;
+    font-weight: 700;
+    margin: 0;
+    width: 51rem;
+    margin-left: 1.2rem; 
+    letter-spacing: 0.2rem;
+    font-weight: 400;
+    font-style: italic;
+    /*text-shadow: #3c3c3c 0px 0.15rem 0px, #1c1c1c 0rem 0.3017rem 0px;*/
+}
+
+.--finish-results {
+    height: 55vh;
+    width: 100%;
+    border-radius: 0.4rem;
+    overflow-y:auto;
+    border: 0.1rem solid white;
+    margin-top: -4vh;
+}
+
+.--finish-results > .--finish-elements:nth-child(even) {
+    background-color: rgb(0,0,0,0.3);
+}
+
+.--finish-results > .--finish-elements:nth-child(odd) {
+    background-color: rgb(0,0,0,0.6);
+}
+
+.--finish-results-text {
+    color: white;
+    font-size: 1.4953rem;
+    margin: 0;
+    margin-left: 0.6rem;
+    font-weight: 400;
+}
+
+.--frtr {
+    font-style: italic;
+    font-size: 1.0953rem;
+    margin-right: 0.6rem;
+    color: rgba(255,255,255,0.4);
+    font-weight: 400;
+}
+
+.--chart-wrapper {
+    display: flex; 
+    flex-direction: column;
+    margin-top: 2%;
+    width: 50%;
+    height:87%;
+    justify-content: space-around;
+    border-top: none;
+    border-bottom: none;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}

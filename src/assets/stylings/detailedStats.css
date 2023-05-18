@@ -1,0 +1,296 @@
+.--detailed-stats {
+    width: calc(100% - 4rem);
+    height: calc(100% - 2.5rem);
+    padding: 0.75rem 2rem 1.75rem 2rem;
+}
+
+.--detailed-stats-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7%;
+    margin-top: -1vh;
+    color: white;
+    position: relative;
+    text-shadow: rgba(255,255,255,0.6) 0 0 0.5rem;
+    letter-spacing: 0.2rem;
+    border-radius: 0.3rem;
+}
+
+.--detailed-stats-header > .--settings-profile-picture {
+    z-index: 5;
+}
+
+.--detailed-stats-header-back {
+    position: absolute;
+    right: 1.5%;
+    cursor: pointer;
+}
+
+.--detailed-stats-main {
+    height: 95%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.--detailed-stats-allgames {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.--detailed-stats-allgames-title {
+    font-weight: 400;
+    color: white;
+    text-align: left;
+    width: 100%;
+    height: 5%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.--detailed-stats-allgames-title-sort {
+    width: 50%;
+    height: calc(100% - 0.5rem);
+    padding: 0 0 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.--detailed-stats-allgames-title-sort-real {
+    width: 100%;
+    height: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.--detailed-stats-allgames-title-sort-item-real {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    width: 48%;
+    font-size: 0.7rem;
+    font-weight: 200;
+}
+
+.--detailed-stats-allgames-title-sort-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46%;
+    width: 100%;
+    font-size: 0.7rem;
+    font-weight: 200;
+}
+
+.detailed-stats-select {
+    height: 1.4rem;
+    font-size: 0.58rem;
+    width: 56%;
+    margin-left: 0.15rem;
+}
+
+.--detailed-stats-allgames-title > h3 {
+    font-weight: 400;
+    margin: 0;
+    text-align: left;
+    width: max-content;
+}
+
+.--detailed-stats-allgames-main {
+    height: 93%;
+    width: 100%;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    border: 1px solid white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 0.1rem;
+}
+
+.--detailed-stats-allgames-main > .--detailed-stats-allgames-game:nth-child(even) {
+    background-color: rgb(0,0,0,0.3);
+}
+
+.--detailed-stats-allgames-main > .--detailed-stats-allgames-game:nth-child(odd) {
+    background-color: rgb(0,0,0,0.6);
+}
+
+.--detailed-stats-allgames-game {
+    width: 100%;
+    height: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.356);
+    position: relative;
+}
+
+.--detailed-stats-allgames-game-titles {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.--detailed-stats-allgames-game-titles > p {
+    width: 33.3%;
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: white;
+    margin: 0;
+    text-align: center;
+}
+
+.--detailed-stats-allgames-game-stats {
+    width:100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.--detailed-stats-allgames-game-stats > p {
+    margin: 0;
+    width: 33.3%;
+    color: white;
+    font-weight: 100;
+    text-align: center;
+    font-style: italic;
+}
+
+.--detailed-stats-allgames-game-timestamp {
+    width: 100%;
+    font-size: 0.45rem;
+    color: rgb(175, 175, 175);
+    text-align: center;
+    margin: 0;
+    margin-top: 0.1rem;
+}
+
+.--detailed-stats-allgames-game-percentage {
+    width: 100%;
+    height: 0.2rem;
+    position: absolute;
+    bottom: 0;
+    margin-top: 0.1rem;
+}
+
+.--detailed-stats-charts-wrapper {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.--detailed-stats-chronograph-wrapper {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.--detailed-stats-chronograph {
+    width: 100%;
+    height: 90%;
+    display: grid;
+    place-items: center;
+
+}
+
+.--detailed-stats-chronograph-title {
+    width: 100%;
+    height: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.--detailed-stats-chronograph-title > h3 {
+    font-weight: 400;
+    margin: 0;
+    text-align: left;
+    width: max-content;
+    color: white;
+}
+
+.--detailed-stats-allgames-main > .--detailed-stats-charts-stat:nth-child(even) > .--detailed-stats-charts-stat-desc {
+    background-color: rgb(0,0,0,0.3);
+}
+
+.--detailed-stats-allgames-main > .--detailed-stats-charts-stat:nth-child(odd) > .--detailed-stats-charts-stat-desc {
+    background-color: rgb(0,0,0,0.6);
+}
+
+.--detailed-stats-charts-stat {
+    height: 33.33%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.--detailed-stats-charts-stat-desc {
+    width: calc(50% - 1.5rem);
+    height: 100%;
+    padding: 0 1rem 0 0.5rem;
+    display: grid;
+    place-items: center;
+    font-size: 0.85rem;
+    color: white;
+    text-align: center;
+}
+
+.--detailed-stats-charts-stat-item-wrapper {
+    height: 100%;
+    width: 50%;
+}
+
+.--detailed-stats-charts-stat-item-wrapper > .--detailed-stats-charts-stat-item:nth-child(even) {
+    background-color: rgb(0,0,0,0.3);
+}
+
+.--detailed-stats-charts-stat-item-wrapper > .--detailed-stats-charts-stat-item:nth-child(odd) {
+    background-color: rgb(0,0,0,0.6);
+}
+
+.--detailed-stats-charts-stat-item {
+    width: calc(100% - 2rem);
+    padding: 0 1rem 0 1rem;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.--detailed-stats-charts-stat-item > p {
+    font-size: 0.65rem;
+    color: rgb(190, 190, 190);
+}
+
+.--detailed-stats-charts-stat-item-percentage {
+    font-size: 0.75rem;
+}
+
+
+/*   background: radial-gradient(circle at right, transparent, transparent 10%, rgba(255,255,255,0.5) 20%) 1;*/
+
+

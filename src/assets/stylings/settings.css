@@ -1,0 +1,634 @@
+
+
+.label {
+    font-size: 1.157rem;
+    text-align: right;
+    margin: 0;
+    font-style: italic;
+    color: rgb(182, 182, 182);
+}
+
+.--settings-btn {
+    display: block;
+    position: relative;
+    z-index: 40;
+    border: none;
+    background: none;
+    border-radius: 0.3rem;
+    width: 4rem;
+    height: 8vh;
+    display: grid;
+    place-items: center;
+    margin-right: -5rem;
+    padding: 0.3rem 0.5rem 0.3rem 0.25rem;
+}
+
+
+.--settings-btn-icon {
+    filter: invert(1);
+    width: 2.2rem;
+    height: 4vh;
+}
+
+
+
+
+.--settings {
+    width: 100rem;
+    height: 88vh;
+    position: absolute;
+    left: 0;
+    top:12vh;
+    z-index: 51;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 0px solid white;
+    border-top: none;
+    border-left: none;
+    backdrop-filter: blur(0.8rem);
+    opacity: 1;
+}
+
+/*style={{position: 'absolute',height:'15vh', zIndex: '-2', marginTop: '-1vh'}}*/
+
+.--settings-profile-picture {
+  height: 15vh;
+  width: 15vh;
+  object-fit: cover;
+  z-index: -2;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.--settings-error {
+    color: rgba(255, 239, 239, 0.952);
+    background-color: rgba(255, 63, 63, 0.562);
+    width: calc(100% + 1.4rem);
+    margin-top:1vh;
+    padding: 0.5rem 0 0.5rem 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.9;
+    justify-content: center;
+    text-align: center;
+    margin-left: -0.7rem;
+    margin-bottom: -0.7rem;
+}
+
+.--account-settings-details {
+  font-size: 0.8rem;
+  font-weight: 200;
+  text-align: left;
+  cursor: default;
+}
+
+.--account-settings-details > p {
+  max-width: 22rem;
+  opacity: 0.8;
+}
+
+.--account-settings-details {
+  width: 100%;
+}
+
+.--account-settings-premades {
+  display: flex;
+  max-width: 23rem;
+  gap: 1rem;
+  column-gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.--premades {
+  margin: 0.7rem 0 0.7rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.--account-settings-premades-premade:hover {
+  cursor: pointer;
+  outline: 1px solid rgba(255, 255, 255, 0.466);
+}
+
+.--account-settings-premades-premade {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.3rem;
+}
+
+.--pfp {
+  width: 12.5vh;
+  height: 12.5vh;
+  margin: 1.5% 0 0 2.5%;
+  border-radius: 0.3rem;
+}
+
+.--pfp-addon {
+  z-index: 10;
+  opacity: 0;
+  cursor:pointer;
+}
+
+.--pfp-addon:hover {
+  opacity: 1;
+}
+
+.--account-settings-p {
+  color: white;
+  text-align: left;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.--account-settings-edit {
+  height: 0.9rem;
+  width: 0.9rem;
+  cursor: pointer;
+}
+
+.--settings-danger-prompt {
+  position: absolute;
+  background-color: rgba(0,0,0,0.3);
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left: 0;
+  z-index: 999;
+  backdrop-filter: blur(0.6rem);
+}
+
+.--settings-button {
+    width: 7rem;
+    padding: 0.3rem;
+    margin: 0.3rem;
+    box-sizing: border-box;
+    border: 1px solid white;
+    color: white;
+    background: transparent;
+    border-radius: 0.3rem;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 800;
+    letter-spacing: 0.05rem;
+    cursor: pointer;
+    outline: 2px solid rgba(255, 255, 255, 0);
+    font-size: 0.7rem;
+}
+
+.--settings-button:hover {
+  outline: 2px solid rgba(255, 255, 255, 0.466);
+  letter-spacing: 0.2rem;
+}
+
+.--settings-button:active {
+  box-shadow: inset rgba(0, 0, 0, 0.215) 0px 0.8vh 1vh;
+}
+
+.--settings-link {
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.--settings-panel {
+    background-color: none;
+    height: 100%;
+    width:40%;
+}
+
+.--settings-panel-option {
+    font-weight: 100;
+    letter-spacing: 0.1rem;
+    word-wrap: none;
+}
+
+.--settings-panel-option-div {
+    width: 96%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2%;
+    padding-right: 2%;
+    min-height: 5vh;
+    font-size: 0.8rem;
+    position:relative;
+}
+
+.--settings-panel-option-info {
+    position: absolute;
+    width: max-content;
+    padding: 0 0.5rem 0 0.5rem;
+    margin-bottom: 4vh;
+    font-size: 0.7rem;
+    background-color: rgb(0,0,0,0.8);
+    border-radius: 0.4rem;
+    border-bottom-left-radius: 0;
+    pointer-events: none;
+}
+.--settings-panel-option-div:hover {
+    background-color: rgba(255,255,255,0.05);
+    transition-duration: 0.1s;
+}
+
+.--settings-panel > fieldset, .--settings-fieldset {
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+    /*border: 2px solid rgba(255, 255, 255, 0.521);*/
+    border-width: 1px;
+    border-style: solid;
+    border-image: radial-gradient(circle at top, transparent, transparent 10%, rgba(255,255,255,0.5) 20%) 1;
+    background-color: rgba(0,0,0,0.1);
+    text-align: center;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    box-shadow: rgba(0,0,0,0.22) 0 0.2rem 0.7rem;
+}
+
+.--settings-panel > fieldset > legend, .--settings-fieldset > legend {
+  letter-spacing: 0.2rem;
+  text-shadow: rgba(255,255,255,0.6) 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+
+.--settings-panel > fieldset:hover, .--settings-fieldset:hover {
+    background-color: rgba(255,255,255,0.0);
+    box-shadow: rgba(0,0,0,0.32) 0 0.2rem 0.7rem;
+}
+
+
+.--settings-underlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.178); 
+    backdrop-filter: blur(0.2rem);
+    position: absolute;
+    z-index: 50;
+}
+
+.animSettings {
+    animation-name: animaSettings;
+    animation-duration: 0.35s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+.showsettingspanels {animation: showsettingspanels 0.25s ease-out 0.1s 1; animation-fill-mode: forwards;}
+
+
+.--summary-txt {
+    margin: 0;
+    font-style: italic;
+    font-size: 0.9953rem;
+    color: rgb(177, 177, 177);
+    font-weight: 200;
+    padding: 0.4rem;
+}
+
+.closeSettings {
+    animation-name: closeSettings;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+.select-type {
+    width: 10rem;
+    height: 4vh;
+    font-size: 0.7rem;
+    font-family: 'Roboto Mono', monospace;
+    background-color: rgba(255, 255, 255, 0.233);
+    font-weight: 700;
+    border-radius: 0.4rem;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: 200;
+}
+
+.select-type option {
+    width: 10rem;
+    background-color: rgba(255,255,255, 0.2) !important;
+    color: black;
+}
+
+
+
+
+  @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    .switch {
+      outline: 2px solid rgba(0,0,0,0)
+    }
+    .checkbox-wrapper-14 input[type=checkbox] {
+      --active: #ffffff63;
+      --active-inner: #fff;
+      --focus: 2px rgba(255, 255, 255, 0.3);
+      --border: #fff;
+      --border-hover: #fff;
+      --background: #ffffff00;
+      --disabled: #ffffff00;
+      --disabled-inner: #ffffff00;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      height: 21px;
+      outline: none;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      margin: 0;
+      cursor: pointer;
+      border: 1px solid var(--bc, var(--border));
+      background: var(--b, var(--background));
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:after {
+      content: "";
+      display: block;
+      left: 0;
+      top: 0;
+      position: absolute;
+      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:checked {
+      --b: var(--active);
+      --bc: var(--active);
+      --d-o: .3s;
+      --d-t: .6s;
+      --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:disabled {
+      --b: var(--disabled);
+      cursor: not-allowed;
+      opacity: 0.9;
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:disabled:checked {
+      --b: var(--disabled-inner);
+      --bc: var(--border);
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:disabled + label {
+      cursor: not-allowed;
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:hover:not(:checked):not(:disabled) {
+      --bc: var(--border-hover);
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:focus {
+      box-shadow: 0 0 0 var(--focus);
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:not(.switch) {
+      width: 21px;
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:not(.switch):after {
+      opacity: var(--o, 0);
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:not(.switch):checked {
+      --o: 1;
+    }
+    .checkbox-wrapper-14 input[type=checkbox] + label {
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    .checkbox-wrapper-14 input[type=checkbox]:not(.switch) {
+      border-radius: 7px;
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:not(.switch):after {
+      width: 5px;
+      height: 9px;
+      border: 2px solid var(--active-inner);
+      border-top: 0;
+      border-left: 0;
+      left: 7px;
+      top: 4px;
+      transform: rotate(var(--r, 20deg));
+    }
+    .checkbox-wrapper-14 input[type=checkbox]:not(.switch):checked {
+      --r: 43deg;
+    }
+    .checkbox-wrapper-14 input[type=checkbox].switch {
+      width: 38px;
+      border-radius: 11px;
+    }
+    .checkbox-wrapper-14 input[type=checkbox].switch:after {
+      left: 2px;
+      top: 2px;
+      border-radius: 50%;
+      width: 17px;
+      height: 17px;
+      background: var(--ab, var(--border));
+      transform: translateX(var(--x, 0));
+    }
+    .checkbox-wrapper-14 input[type=checkbox].switch:checked {
+      --ab: var(--active-inner);
+      --x: 17px;
+    }
+    .checkbox-wrapper-14 input[type=checkbox].switch:disabled:not(:checked):after {
+      opacity: 0.6;
+    }
+  }
+
+  .checkbox-wrapper-14 * {
+    box-sizing: inherit;
+  }
+  .checkbox-wrapper-14 *:before,
+  .checkbox-wrapper-14 *:after {
+    box-sizing: inherit;
+  }
+
+  .--settings-user-badges {
+    height:2.2vh;
+  }
+
+  .--settings-user-badges-info {
+    position: absolute;
+    background-color: rgba(0,0,0,0.878);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1.5%;
+    width: 28%;
+    padding: 1%;
+    padding-bottom: 1.5%;
+    border-radius: 0.4rem;
+    border-top-left-radius: 0;
+    display: none;
+  }
+
+  .--settings-horizontal-line {
+    width: 100%;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.781), white, rgba(255, 255, 255, 0.774), transparent);
+    margin: 1vh 0 1vh 0
+  }/*style={{fontSize: '1rem', fontWeight: '400', textAlign: 'center'}}*/
+
+  .--settings-user-badges-info-title {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: transparent;
+    background-image: linear-gradient(to bottom right, white, rgb(212, 212, 212) ,rgb(179, 179, 179));
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  .--settings-user-badges-info-body {
+    font-size: 0.8rem;
+    font-weight: 200;
+    text-align: center;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.801);
+  }
+
+  .--settings-search {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+
+  .--settings-search > input {
+    width: 95%;
+    margin: 0.4rem 0 0.8rem 0;
+    background-color: rgba(0, 0, 0, 0.185);
+  }
+
+
+.--settings-search-display {
+  position: absolute;
+  width: calc(97% - 1rem);
+  padding: 0.5rem;
+  overflow-y: auto;
+  min-height: 20vh;
+  max-height: 70vh;
+  top: 0;
+  z-index: 1;
+  top: calc(100% + 1px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-top: 0;
+  background-color: rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.--settings-search-user {
+  width: calc(100% - 1rem);
+  padding: 0 0.5rem 0 0.5rem;
+  height: 4rem;
+  min-height: 4rem;
+  border-radius: 0.3rem;
+  background-color: rgb(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition-duration: 0s;
+}
+
+.--settings-search-user:hover {
+  background-color: rgb(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.--settings-search-user-p {
+  font-size: 0.8rem;
+  max-width: 85%;
+  margin: 0;
+  white-space:pre;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.--settings-search-pfp {
+  height: 3rem;
+  width: 3rem;
+  margin-right: 0.5rem;
+}
+
+
+.loader {
+  position: absolute;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  perspective: 800px;
+}
+
+.inner {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;  
+}
+
+.inner.one {
+  left: 0%;
+  top: 0%;
+  animation: rotate-one 1s linear infinite;
+  border-bottom: 3px solid #EFEFFA;
+}
+
+.inner.two {
+  right: 0%;
+  top: 0%;
+  animation: rotate-two 1s linear infinite;
+  border-right: 3px solid #EFEFFA;
+}
+
+.inner.three {
+  right: 0%;
+  bottom: 0%;
+  animation: rotate-three 1s linear infinite;
+  border-top: 3px solid #EFEFFA;
+}
+
+@keyframes rotate-one {
+  0% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+  }
+}
+
+@keyframes rotate-two {
+  0% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+  }
+}
+
+@keyframes rotate-three {
+  0% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+  }
+}

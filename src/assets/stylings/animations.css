@@ -1,0 +1,148 @@
+@keyframes blinker {/*logo blinker*/
+    from {
+        opacity: 100%
+    }
+    to {
+        opacity: 0%
+    }
+}
+
+@keyframes animate {/* cirlces background effect animation*/
+
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 25%;
+    }
+
+    100%{
+        transform: translateY(-78.6164rem) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+
+}
+
+/* Finish pop up animations */
+@keyframes showBox {
+    0% {
+        transform: scale(1.4);
+        opacity: 0;
+        border-radius: 0.4rem;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes closeBox {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+/************************************************/
+
+@keyframes showOverlay {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes closeOverlay {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* options anims*/
+@keyframes animaSettings {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0; 
+    }
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+}
+@keyframes closeSettings {
+    0% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+}
+
+
+
+/* color background effect */
+@keyframes backdrop {
+    0% {
+        opacity: 1;
+        filter: hue-rotate(0deg) brightness(0.85)
+    }
+    33% {
+        opacity: 1;
+        filter: hue-rotate(90deg) brightness(1)
+    }
+    66% {
+        opacity: 1;
+        filter: hue-rotate(180deg) brightness(0.85);
+    }
+    100% {
+        opacity: 1;
+        filter: hue-rotate(270deg) brightness(1);
+    }
+
+}
+
+@keyframes clickanimation {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.9);
+    }
+}
+
+
+/* Settings setting info anims */
+@keyframes revealInfo {
+    0% {
+        opacity: 0;
+        transform: translateX(0.5rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0rem);
+    }
+}
+.settingsrevealinfo {animation: revealInfo 0.15s ease-out 1; animation-fill-mode: forwards;}
+
+@keyframes hideInfo {
+    0% {
+        opacity: 1;
+        transform: translateX(0rem);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(0.5rem);
+    }
+}
+.settingshideinfo {animation: hideInfo 0.1s ease-out 1; animation-fill-mode: forwards;}
