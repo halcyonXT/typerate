@@ -8,7 +8,7 @@ Typerate is a feature-rich and customizable typing speed test application built 
 
 - **Support for 40+ Languages**: Typerate goes beyond English and provides typing tests in over 40 languages, allowing users from different backgrounds to enhance their typing speed in their native language.
 
-- **Customizable Environment**: With Typerate, you can customize the typing environment according to your preferences. Adjust the font size, theme, and background color to create a typing experience that suits your needs.
+- **Customizable Environment**: With Typerate, you can customize the typing environment according to your preferences. Adjust the visual components, theme, and display type to create a typing experience that suits your needs.
 
 - **Detailed User Statistics**: Typerate keeps track of each user's progress and provides comprehensive statistics to analyze their typing performance. Get insights into your words per minute (WPM), accuracy, points of failure, and more.
 
@@ -30,7 +30,7 @@ To start using Typerate, follow these steps:
 
 ## Feedback and Support
 
-If you have any feedback or need support while using Typerate, please create an issue on the GitHub repository. We are committed to providing prompt assistance and continuously improving the application.
+If you have any feedback or need support while using Typerate, please create an issue on the GitHub repository. I am committed to providing prompt assistance and continuously improving the application.
 
 ---
 
